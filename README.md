@@ -1,5 +1,5 @@
 # EShell
-基于Bash Shell的天翼校园登录
+基于Bash Shell的天翼校园登录脚本
 
 ## 脚本说明
 - 使用Bash Shell轻量脚本，兼容大部分系统。
@@ -47,17 +47,17 @@ opkg update && opkg install curl && curl -L "https://github.com/SummonHIM/EShell
 > 
 > 其他Unix系系统也大同小异，只需要把opkg修改为系统常用的包管理器即可。
 > 
-> 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。Android Termux需要修改`/usr/local/bin/`文件夹为`/data/data/com.termux/files/usr/bin/`
+> 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。Android Termux需要修改`/usr/local/bin/`文件夹为`/data/data/com.termux/files/usr/bin/`。
 
 ## 如何使用？
 ```
 用法：eshell <操作> [选项] [...]"
 操作：
-   eshell {-h --help}	显示本帮助
    eshell {-L --login}	登陆到校园网
    eshell {-O --logout}	注销校园网
    eshell {-D --daemon}	监控模式
    eshell {-C --custom}	调用自定义函数
+   eshell {-h --help}	显示本帮助
 选项：
    -a, --account	账号
    -p, --password	密码
@@ -108,4 +108,5 @@ login() {
 
 ### 声明
 严格遵守GPL-3.0开源协议，禁止任何个人或者公司将本代码投入商业使用，由此造成的后果和法律责任均与本人无关。
+
 本项目只适用于学习交流，请勿商用！

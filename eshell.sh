@@ -430,11 +430,11 @@ daemon() {
 help() {
     echo "用法：$0 <操作> [选项] [...]"
     echo "操作："
-    printf "   $0 {-h --help}\t显示本帮助\n"
     printf "   $0 {-L --login}\t登陆到校园网\n"
     printf "   $0 {-O --logout}\t注销校园网\n"
     printf "   $0 {-D --daemon}\t监控模式\n"
     printf "   $0 {-C --custom}\t调用自定义函数\n"
+    printf "   $0 {-h --help}\t显示本帮助\n"
     echo "选项："
     printf "   -a, --account\t账号\n"
     printf "   -p, --password\t密码\n"
@@ -470,7 +470,7 @@ main() {
         fi
         if [ -z $_ES_ACC_PASSWD ]; then
             printl Warning "密码为空！"
-            read -sp "请输入的密码: " _ES_ACC_PASSWD
+            read -sp "请输入密码: " _ES_ACC_PASSWD
             echo ""
         fi
 
@@ -482,7 +482,8 @@ main() {
                     printl Info "获取到第一活跃网口: $_ES_CONFIG_DEVICE"
                 fi
             else
-                printl Error "无法获取到第一活跃网口，请在参数或初始化文件中指定！"
+                printl Warning "无法获取到第一活跃网口！"
+                read -sp "请输入正连接校园网的网口: " _ES_CONFIG_DEVICE
                 exit 1
             fi
         fi
@@ -526,6 +527,10 @@ while [[ $# -gt 0 ]]; do
         case "$1" in
             -a|--account)
                 _ES_ACC_USERNAME=$2
+                shift 2
+                ;;
+            -d|--device)
+                _ES_CONFIG_DEVICE=$2
                 shift 2
                 ;;
             -p|--password)
