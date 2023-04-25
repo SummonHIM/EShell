@@ -164,7 +164,7 @@ _ES_REDIR_URL=网络登录跳转检测链接，用于检测是否跳转到该登
 - https://github.com/Z446C/ESC-Z
 
 ## 开源协议
-[GPL-3.0](https://github.com/Z446C/ESC-Z/blob/main/LICENSE)
+[GPL-3.0](/LICENSE)
 
 ### 声明
 严格遵守GPL-3.0开源协议，禁止任何个人或者公司将本代码投入商业使用，由此造成的后果和法律责任均与本人无关。
