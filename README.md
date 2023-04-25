@@ -21,7 +21,7 @@
 ## 运行环境
 ### 终端
 - 对于Linux/Mac系统可以直接运行。
-- 对于Windows系统可以安装 MSYS，可以在MSYS提供的Bash中运行。关于获取IP与MAC地址的问题详见该[初始化文件范例](/sample/windows-ipconfig/eshellrc.sh)。
+- 对于Windows系统可以安装 MSYS，可以在MSYS提供的Bash中运行。关于获取IP与MAC地址的问题详见该[初始化文件范例](/sample/windows-net-tools/eshellrc.sh)。
 
 ### 工具包
 - curl: 用于HTTP请求。（必装）

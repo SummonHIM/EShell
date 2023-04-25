@@ -258,21 +258,21 @@ getIP() {
 # 获取第一活跃端口
 # Return: Ether name
 getActivateEther() {
-    echo $(ip addr | grep "state UP" | awk '{print $2}' | cut -d: -f1)
+    echo $(ip addr | grep "state UP" | awk '{print $2}' | cut -d: -f1 | head -1)
 }
 
 # 获取MAC地址
 # Params: <IP>
 # Return: MAC
 getMAC() {
-    echo $(ip addr | grep -3 $1 | awk '/ether/ { print $2 }')
+    echo $(ip addr | grep -3 $1 | awk '/ether/ { print $2 }' | head -1)
 }
 
 # 获取本地IP地址
 # Params: <Ether>
 # Return: Ether's IP
 getLocalIP() {
-    echo $(ip addr show dev $1 | grep "inet " | awk '{print $2}' | cut -d/ -f1)
+    echo $(ip addr show dev $1 | grep "inet " | awk '{print $2}' | cut -d/ -f1 | head -1)
 }
 
 # 网站访问状态
