@@ -12,7 +12,7 @@ if [ -z $_ES_HOMEPATH ]; then
     _ES_HOMEPATH="$HOME/.config/eshell"
 fi
 
-_ES_DAEMON_SLEEPTIME=300
+_ES_DAEMON_SLEEPTIME=300s
 
 _ES_LOG_ENABLE=false
 _ES_LOG_PATH="$_ES_HOMEPATH/eshell.log"
@@ -69,7 +69,8 @@ if [[ $LANG =~ "zh_CN" ]]; then
     _ES_LANG_LOGIN_RESULT="服务器返回结果:"
     _ES_LANG_LOGIN_CHECK_REDIRURL_FAILED="获取登陆地址失败。"
     _ES_LANG_LOGIN_CHECK_FAILED="登录失败。请检查当前网络环境。"
-    _ES_LANG_LOGOUT_RUNFILE_LOST="文件 $_ES_HOMEPATH/eshell.run 已丢失，无法读取上次登陆的缓存信息。"
+    _ES_LANG_LOGOUT_RUNFILE_LOST_A="文件"
+    _ES_LANG_LOGOUT_RUNFILE_LOST_B="已丢失，无法读取上次登陆的缓存信息。"
     _ES_LANG_LOGOUT_GET_CLIENT_FAILED="无法读取上次登陆缓存的客户端IP信息。"
     _ES_LANG_LOGOUT_GET_MAC_FAILED="无法读取上次登陆缓存的本机MAC信息。"
     _ES_LANG_LOGOUT_GET_NASIP_FAILED="无法读取上次登陆缓存的服务器IP信息。"
@@ -84,8 +85,10 @@ if [[ $LANG =~ "zh_CN" ]]; then
     _ES_LANG_LOGOUT_SUCCESS="注销成功！"
     _ES_LANG_LOGOUT_FAILED="注销失败。"
     _ES_LANG_LOGOUT_RESULT="服务器返回结果:"
-    _ES_LANG_DAEMON_WAIT="等待 $_ES_DAEMON_SLEEPTIME 后重复执行。"
-    _ES_LANG_MAIN_HOMEPATH_MKDIR="主目录 $_ES_HOMEPATH 不存在，正在创建..."
+    _ES_LANG_DAEMON_WAIT_A="等待"
+    _ES_LANG_DAEMON_WAIT_B="后重复执行。"
+    _ES_LANG_MAIN_HOMEPATH_MKDIR_A="主目录"
+    _ES_LANG_MAIN_HOMEPATH_MKDIR_B="不存在，正在创建..."
     _ES_LANG_MAIN_USERNAME_EMPTY="用户名为空！"
     _ES_LANG_MAIN_USERNAME_MANUAL="请输入用户名:"
     _ES_LANG_MAIN_PASSWD_EMPTY="密码为空！"
@@ -135,7 +138,8 @@ else
     _ES_LANG_LOGIN_RESULT="Server response result:"
     _ES_LANG_LOGIN_CHECK_REDIRURL_FAILED="Fetch login URL failed."
     _ES_LANG_LOGIN_CHECK_FAILED="Login failed. please check your network environment."
-    _ES_LANG_LOGOUT_RUNFILE_LOST="File $_ES_HOMEPATH/eshell.run not found, can not fetch cached last login information."
+    _ES_LANG_LOGOUT_RUNFILE_LOST_A="File"
+    _ES_LANG_LOGOUT_RUNFILE_LOST_B="not found, can not fetch cached last login information."
     _ES_LANG_LOGOUT_GET_CLIENT_FAILED="Can not fetch cached last login's client IP."
     _ES_LANG_LOGOUT_GET_MAC_FAILED="Can not fetch cached last login's client MAC."
     _ES_LANG_LOGOUT_GET_NASIP_FAILED="Can not fetch cached last login's NAS IP."
@@ -150,8 +154,10 @@ else
     _ES_LANG_LOGOUT_SUCCESS="Logout successful!"
     _ES_LANG_LOGOUT_FAILED="Logout failed."
     _ES_LANG_LOGOUT_RESULT="Server response result:"
-    _ES_LANG_DAEMON_WAIT="Wait $_ES_DAEMON_SLEEPTIME."
-    _ES_LANG_MAIN_HOMEPATH_MKDIR="Home path $_ES_HOMEPATH not exist, creating..."
+    _ES_LANG_DAEMON_WAIT_A="Wait."
+    _ES_LANG_DAEMON_WAIT_B="."
+    _ES_LANG_MAIN_HOMEPATH_MKDIR_A="Home path"
+    _ES_LANG_MAIN_HOMEPATH_MKDIR_B="not exist, creating..."
     _ES_LANG_MAIN_USERNAME_EMPTY="User name empty!"
     _ES_LANG_MAIN_USERNAME_MANUAL="Please enter the user name:"
     _ES_LANG_MAIN_PASSWD_EMPTY="Password empty!"
@@ -525,7 +531,7 @@ logout() {
     if [ -e "$_ES_HOMEPATH/eshell.run" ]; then
         . $_ES_HOMEPATH/eshell.run
     else
-        printl Warning "$_ES_LANG_LOGOUT_RUNFILE_LOST"
+        printl Warning "$_ES_LANG_LOGOUT_RUNFILE_LOST_A $_ES_HOMEPATH/eshell.run $_ES_LANG_LOGOUT_RUNFILE_LOST_B"
     fi
 
     # 若变量缺失值则尝试获取
@@ -572,7 +578,7 @@ daemon() {
     while true; do
         logicActivateEther
         login
-        printl Info "$_ES_LANG_DAEMON_WAIT"
+        printl Info "$_ES_LANG_DAEMON_WAIT_A $_ES_DAEMON_SLEEPTIME $_ES_LANG_DAEMON_WAIT_B"
         sleep $_ES_DAEMON_SLEEPTIME
     done
 }
@@ -590,7 +596,7 @@ main() {
     # Home目录不存在则创建
     if [ ! -d $_ES_HOMEPATH ]; then
         if [[ $verbose == true ]]; then
-            printl Warning "$_ES_LANG_MAIN_HOMEPATH_MKDIR"
+            printl Warning "$_ES_LANG_MAIN_HOMEPATH_MKDIR_A $_ES_HOMEPATH $_ES_LANG_MAIN_HOMEPATH_MKDIR_B"
         fi
         mkdir -p $_ES_HOMEPATH
     fi
