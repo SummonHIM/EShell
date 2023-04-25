@@ -87,7 +87,7 @@ eshell -O
 
 > 注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
 
-将范例文件下载至`/etc/systemd/system/`或`/home/summonhim/.config/systemd/user/`（作为用户服务）文件夹中即可。
+将范例文件下载至`/etc/systemd/system/`或`~/.config/systemd/user/`（作为用户服务）文件夹中即可。
 
 #### Linux init.d
 研究中，尽请期待…
