@@ -423,6 +423,19 @@ logout() {
 # 循环检测登陆
 daemon() {
     while true; do
+        # 获取第一活跃网口
+        if [ -z "$_ES_CONFIG_DEVICE" ]; then
+            _ES_CONFIG_DEVICE=`getActivateEther`
+            if [ "$_ES_CONFIG_DEVICE" ]; then
+                if [[ $verbose == true ]]; then
+                    printl Info "获取到第一活跃网口: $_ES_CONFIG_DEVICE"
+                fi
+            else
+                printl Warning "无法获取到第一活跃网口！"
+                read -sp "请输入正连接校园网的网口: " _ES_CONFIG_DEVICE
+                exit 1
+            fi
+        fi
         login
         printl Info "等待 $_ES_DAEMON_SLEEPTIME 后重复执行。"
         sleep $_ES_DAEMON_SLEEPTIME
