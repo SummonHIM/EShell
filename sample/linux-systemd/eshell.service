@@ -1,0 +1,11 @@
+[Unit]
+Description=EShell daemon.
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/home/summonhim/.local/bin/eshell -D -v
+
+[Install]
+WantedBy=multi-user.target

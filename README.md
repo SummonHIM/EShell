@@ -83,7 +83,9 @@ eshell -O
 
 ### 作为系统服务监控网络
 #### Linux systemd
-研究中，尽请期待…
+[范例文件](/sample/linux-systemd/eshell.service)
+
+注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
 
 #### Linux init.d
 研究中，尽请期待…
