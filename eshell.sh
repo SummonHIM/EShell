@@ -7,7 +7,10 @@
 _ES_ACC_USERNAME=""
 _ES_ACC_PASSWD=""
 _ES_CONFIG_DEVICE=""
-_ES_HOMEPATH="$HOME/.config/eshell"
+
+if [ -z $_ES_HOMEPATH ]; then
+    _ES_HOMEPATH="$HOME/.config/eshell"
+fi
 
 _ES_DAEMON_SLEEPTIME=300
 
@@ -289,7 +292,7 @@ login() {
                 if [[ $verbose == true ]]; then
                     printl Info "因无法获取到客户端IP，所以尝试使用第一活跃网口/预定义网口的IP与MAC。"
                 fi
-                _ES_CONFIG_CLIENTIP=`getLocalIP $_ES_CONFIG_DEVICE`
+                _ES_CONFIG_CLIENTIP=`getLocalIP "$_ES_CONFIG_DEVICE"`
                 _ES_CONFIG_MAC=`getMAC $_ES_CONFIG_CLIENTIP`
             fi
             if [ $_ES_CONFIG_MAC ]; then
@@ -381,7 +384,7 @@ logout() {
     # 若变量缺失值则尝试获取
     if [ -z $_ES_CONFIG_CLIENTIP ]; then
         printl Warning "无法读取上次登陆缓存的客户端IP信息。"
-        _ES_CONFIG_CLIENTIP=`getLocalIP $_ES_CONFIG_DEVICE`
+        _ES_CONFIG_CLIENTIP=`getLocalIP "$_ES_CONFIG_DEVICE"`
     fi
     if [ -z $_ES_CONFIG_MAC ]; then
         printl Warning "无法读取上次登陆缓存的本机MAC信息。"
@@ -454,6 +457,9 @@ main() {
 
     # Home目录不存在则创建
     if [ ! -d $_ES_HOMEPATH ]; then
+        if [[ $verbose == true ]]; then
+            printl Warning "主目录 $_ES_HOMEPATH 不存在，正在创建..."
+        fi
         mkdir -p $_ES_HOMEPATH
     fi
 
@@ -475,9 +481,9 @@ main() {
         fi
 
         # 获取第一活跃网口
-        if [ -z $_ES_CONFIG_DEVICE ]; then
+        if [ -z "$_ES_CONFIG_DEVICE" ]; then
             _ES_CONFIG_DEVICE=`getActivateEther`
-            if [ $_ES_CONFIG_DEVICE ]; then
+            if [ "$_ES_CONFIG_DEVICE" ]; then
                 if [[ $verbose == true ]]; then
                     printl Info "获取到第一活跃网口: $_ES_CONFIG_DEVICE"
                 fi
