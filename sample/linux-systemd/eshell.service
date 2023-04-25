@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/home/summonhim/.local/bin/eshell -D -v
+ExecStart=/usr/local/bin/eshell -D
 
 [Install]
 WantedBy=multi-user.target
