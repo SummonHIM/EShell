@@ -30,17 +30,17 @@
 ## 快速安装
 ### Arch Linux/Windows MSYS（请注意阅读下方注释）
 ```Shell
-sudo pacman -S curl && sudo curl -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
+sudo pacman -S curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
 ```
 
 ### Ubuntu/Android Termux（请注意阅读下方注释）
 ```Shell
-sudo apt update && sudo apt install curl && sudo curl -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
+sudo apt update && sudo apt install curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
 ```
 
 ### OpenWrt
 ```Shell
-opkg update && opkg install curl && curl -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && chmod +x "/usr/local/bin/eshell"
+opkg update && opkg install curl && curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && chmod +x "/usr/local/bin/eshell"
 ```
 
 > 以上命令将一键安装CUrl并下载本仓库的eshell.sh文件至`/bin/eshell`，最后赋予执行权限。
