@@ -35,7 +35,7 @@ sudo pacman -S curl && sudo curl -L "https://github.com/SummonHIM/EShell/raw/mas
 
 ### Ubuntu/Android Termux（请注意阅读下方注释）
 ```Shell
-sudo apt update && sudo apt install curl && curl -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && chmod +x "/usr/local/bin/eshell"
+sudo apt update && sudo apt install curl && sudo curl -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
 ```
 
 ### OpenWrt
@@ -51,7 +51,7 @@ opkg update && opkg install curl && curl -L "https://github.com/SummonHIM/EShell
 
 ## 如何使用？
 ```
-用法：eshell <操作> [选项] [...]"
+用法：eshell <操作> [选项] [...]
 操作：
    eshell {-L --login}	登陆到校园网
    eshell {-O --logout}	注销校园网
@@ -81,13 +81,23 @@ eshell -O
 > _ES_HOMEPATH="$HOME/.config/eshell2" ./eshell.sh -L -v
 ```
 
+### 作为系统服务监控网络
+#### Linux systemd
+研究中，尽请期待…
+
+#### Linux init.d
+研究中，尽请期待…
+
+#### Windows service
+研究中，尽请期待…
+
 ## 初始化文件
 初始化文件能在不修改脚本的前提下为脚本新增/修改功能、函数以及变量。其定位与Bash中的`.bashrc`一致。
 
 脚本将在执行函数前读取位于`~/.config/eshell/eshellrc.sh`中的初始化文件。你可以将你的自定义功能、函数以及变量提前写入初始化文件中。
 
 ### 用一段Bash命令来诠释初始化文件的作用
-```
+```Shell
 > cat ~/.config/eshell/eshellrc.sh
 _ES_ACC_USERNAME="123456"
 _ES_ACC_PASSWD="987654"
@@ -100,6 +110,47 @@ login() {
 ```
 由以上代码可看出：初始化文件为用户名和密码变量赋上了值。并覆盖了login()函数。当你使用-L参数执行登陆函数时，优先读取初始化文件中的账号密码并执行了初始化文件中的login()函数。
 
+### 脚本变量解释
+
+可随时使用初始化文件为本脚本变量赋值。
+```Shell
+_ES_ACC_USERNAME=登录用户名
+_ES_ACC_PASSWD=登录密码
+_ES_CONFIG_DEVICE=指定网卡
+
+_ES_HOMEPATH=主文件夹路径，用于存储初始化文件、登录缓存和运行日志
+
+_ES_DAEMON_SLEEPTIME=监听模式执行间隔（单位详见 sleep --help）
+
+_ES_LOG_ENABLE=是否启用日志。布尔值，默认False
+_ES_LOG_PATH=日志路径。默认"$_ES_HOMEPATH/eshell.log"
+_ES_LOG_MAXSIZE=日志最大大小，超出后将移除旧日志
+_ES_LOG_TIMESTAMP=日志内容时间戳，默认$(date "+%Y-%m-%d %H:%M:%S")
+
+# 如有特殊需要，否则最好不要编辑以下内容
+_ES_GLOBAL_ISWIFI="4060"
+_ES_GLOBAL_SECRET="Eshore!@#"
+_ES_GLOBAL_VERSION="214"
+_ES_GLOBAL_USERAGENT="User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
+_ES_GLOBAL_URL_QUERYSCHOOL="http://enet.10000.gd.cn:10001/client/queryschool"
+_ES_GLOBAL_URL_AD="http://enet.10000.gd.cn:10001/advertisement.do"
+_ES_GLOBAL_URL_VCHALLENGE="http://enet.10000.gd.cn:10001/client/vchallenge"
+_ES_GLOBAL_URL_LOGIN="http://enet.10000.gd.cn:10001/client/login"
+_ES_GLOBAL_URL_LOGOUT="http://enet.10000.gd.cn:10001/client/logout"
+# 如有特殊需要，否则最好不要编辑以上内容
+
+# 以下内容一般都是自动获取的。可以不用编辑
+_ES_CONFIG_COOKIE=登录/注销Cookie。
+_ES_CONFIG_VERIFYCODE=登录验证码
+_ES_CONFIG_MAC=登录/注销客户端MAC
+_ES_CONFIG_CLIENTIP=登录/注销客户端IP
+_ES_CONFIG_NASIP=登录/注销服务器IP
+_ES_CONFIG_SCHOOLID=登录/注销学校ID
+
+_ES_NC_URL=HTTP204验证服务器，默认"http://connect.rom.miui.com/generate_204"
+_ES_REDIR_URL=网络登录跳转检测链接，用于检测是否跳转到该登录页。默认"enet.10000.gd.cn:10001"
+```
+
 ## 参考项目
 致谢大佬们的项目
 - https://github.com/OJZen/FckESC
@@ -107,7 +158,6 @@ login() {
 - https://github.com/6DDUU6/SchoolAuthentication
 - https://github.com/OpenWyu/lua-esurfing-client
 - https://github.com/Z446C/ESC-Z
-
 
 ## 开源协议
 [GPL-3.0](https://github.com/Z446C/ESC-Z/blob/main/LICENSE)
