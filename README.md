@@ -89,12 +89,8 @@ eshell -O
 
 将范例文件下载至`/etc/systemd/system/`或`~/.config/systemd/user/`（作为用户服务）文件夹中即可。
 
-#### Linux init.d
+#### OpenWrt init.d
 研究中，尽请期待…
-
-#### Windows service
-![Windows service](https://user-images.githubusercontent.com/33192611/234532053-3f4a5bae-75e5-42f3-b881-78bc71c3ca92.png)
-
 
 ## 初始化文件
 初始化文件能在不修改脚本的前提下为脚本新增/修改功能、函数以及变量。其定位与Bash中的`.bashrc`一致。
