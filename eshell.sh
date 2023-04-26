@@ -17,7 +17,7 @@ _ES_DAEMON_SLEEPTIME=300s
 _ES_LOG_ENABLE=false
 _ES_LOG_PATH="$_ES_HOMEPATH/eshell.log"
 _ES_LOG_MAXSIZE=256
-_ES_LOG_TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+_ES_LOG_TIMESTAMP="+%Y-%m-%d %H:%M:%S"
 
 _ES_GLOBAL_ISWIFI="4060"
 _ES_GLOBAL_SECRET="Eshore!@#"
@@ -186,9 +186,9 @@ fi
 # Params: <Log type> <Log message>
 # Return: YYYY-MM-DD [Log type]: Log message
 printl() {
-    printf "$_ES_LOG_TIMESTAMP [$1]: $2\n"
+    printf "$(date "$_ES_LOG_TIMESTAMP") [$1]: $2\n"
     if [ $_ES_LOG_ENABLE == true ]; then
-        printf "$_ES_LOG_TIMESTAMP [$1]: $2\n" >>$_ES_LOG_PATH
+        printf "$(date "$_ES_LOG_TIMESTAMP") [$1]: $2\n" >>$_ES_LOG_PATH
     fi
 }
 

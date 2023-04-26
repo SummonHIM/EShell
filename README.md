@@ -124,12 +124,12 @@ _ES_CONFIG_DEVICE=指定网卡
 
 _ES_HOMEPATH=主文件夹路径，用于存储初始化文件、登录缓存和运行日志
 
-_ES_DAEMON_SLEEPTIME=监听模式执行间隔（单位详见 sleep --help）
+_ES_DAEMON_SLEEPTIME=监听模式执行间隔（单位详见sleep --help）
 
 _ES_LOG_ENABLE=是否启用日志。布尔值，默认False
 _ES_LOG_PATH=日志路径。默认"$_ES_HOMEPATH/eshell.log"
 _ES_LOG_MAXSIZE=日志最大大小，超出后将移除旧日志
-_ES_LOG_TIMESTAMP=日志内容时间戳，默认$(date "+%Y-%m-%d %H:%M:%S")
+_ES_LOG_TIMESTAMP=日志内容时间戳，默认"+%Y-%m-%d %H:%M:%S"
 
 # 如有特殊需要，否则最好不要编辑以下内容
 _ES_GLOBAL_ISWIFI="4060"
