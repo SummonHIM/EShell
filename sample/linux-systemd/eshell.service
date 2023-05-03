@@ -1,0 +1,11 @@
+[Unit]
+Description=EShell daemon.
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/路径/到你的/eshell -D
+
+[Install]
+WantedBy=multi-user.target

@@ -21,7 +21,7 @@
 ## 运行环境
 ### 终端
 - 对于Linux/Mac系统可以直接运行。
-- 对于Windows系统可以安装 MSYS，可以在MSYS提供的Bash中运行。关于获取IP与MAC地址的问题详见该[初始化文件范例](/sample/windows-ipconfig/eshellrc.sh)。
+- 对于Windows系统可以安装 MSYS，可以在MSYS提供的Bash中运行。关于获取IP与MAC地址的问题详见该[初始化文件范例](/sample/windows-net-tools/eshellrc.sh)。
 
 ### 工具包
 - curl: 用于HTTP请求。（必装）
@@ -30,17 +30,17 @@
 ## 快速安装
 ### Arch Linux/Windows MSYS（请注意阅读下方注释）
 ```Shell
-sudo pacman -S curl && sudo curl -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
+sudo pacman -S curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
 ```
 
 ### Ubuntu/Android Termux（请注意阅读下方注释）
 ```Shell
-sudo apt update && sudo apt install curl && sudo curl -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
+sudo apt update && sudo apt install curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && sudo chmod +x "/usr/local/bin/eshell"
 ```
 
 ### OpenWrt
 ```Shell
-opkg update && opkg install curl && curl -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && chmod +x "/usr/local/bin/eshell"
+opkg update && opkg install curl && curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/bin/eshell" && chmod +x "/usr/bin/eshell"
 ```
 
 > 以上命令将一键安装CUrl并下载本仓库的eshell.sh文件至`/bin/eshell`，最后赋予执行权限。
@@ -83,13 +83,20 @@ eshell -O
 
 ### 作为系统服务监控网络
 #### Linux systemd
-研究中，尽请期待…
+[范例文件](/sample/linux-systemd/eshell.service)
 
-#### Linux init.d
-研究中，尽请期待…
+> 注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
 
-#### Windows service
-研究中，尽请期待…
+将范例文件下载至`/etc/systemd/system/`或`~/.config/systemd/user/`（作为用户服务）文件夹后，修改文件内的路径即可。
+
+#### OpenWrt init.d
+[范例文件](/sample/openwrt-initd/eshell)
+
+> 注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
+>
+> [OpenWrt服务使用教程（英文）](https://openwrt.org/docs/guide-user/base-system/managing_services) | [OpenWrt日志查看教程（英文）](https://openwrt.org/docs/guide-user/base-system/log.essentials)
+
+将范例文件下载至`/etc/init.d`文件夹后，修改文件内的路径即可。
 
 ## 初始化文件
 初始化文件能在不修改脚本的前提下为脚本新增/修改功能、函数以及变量。其定位与Bash中的`.bashrc`一致。
@@ -120,12 +127,12 @@ _ES_CONFIG_DEVICE=指定网卡
 
 _ES_HOMEPATH=主文件夹路径，用于存储初始化文件、登录缓存和运行日志
 
-_ES_DAEMON_SLEEPTIME=监听模式执行间隔（单位详见 sleep --help）
+_ES_DAEMON_SLEEPTIME=监听模式执行间隔（单位详见sleep --help）
 
 _ES_LOG_ENABLE=是否启用日志。布尔值，默认False
 _ES_LOG_PATH=日志路径。默认"$_ES_HOMEPATH/eshell.log"
 _ES_LOG_MAXSIZE=日志最大大小，超出后将移除旧日志
-_ES_LOG_TIMESTAMP=日志内容时间戳，默认$(date "+%Y-%m-%d %H:%M:%S")
+_ES_LOG_TIMESTAMP=日志内容时间戳，默认"+%Y-%m-%d %H:%M:%S"
 
 # 如有特殊需要，否则最好不要编辑以下内容
 _ES_GLOBAL_ISWIFI="4060"
@@ -160,7 +167,7 @@ _ES_REDIR_URL=网络登录跳转检测链接，用于检测是否跳转到该登
 - https://github.com/Z446C/ESC-Z
 
 ## 开源协议
-[GPL-3.0](https://github.com/Z446C/ESC-Z/blob/main/LICENSE)
+[GPL-3.0](/LICENSE)
 
 ### 声明
 严格遵守GPL-3.0开源协议，禁止任何个人或者公司将本代码投入商业使用，由此造成的后果和法律责任均与本人无关。
