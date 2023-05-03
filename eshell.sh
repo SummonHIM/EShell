@@ -154,7 +154,7 @@ else
     _ES_LANG_LOGOUT_SUCCESS="Logout successful!"
     _ES_LANG_LOGOUT_FAILED="Logout failed."
     _ES_LANG_LOGOUT_RESULT="Server response result:"
-    _ES_LANG_DAEMON_WAIT_A="Wait."
+    _ES_LANG_DAEMON_WAIT_A="Wait"
     _ES_LANG_DAEMON_WAIT_B="."
     _ES_LANG_MAIN_HOMEPATH_MKDIR_A="Home path"
     _ES_LANG_MAIN_HOMEPATH_MKDIR_B="not exist, creating..."

@@ -87,10 +87,16 @@ eshell -O
 
 > 注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
 
-将范例文件下载至`/etc/systemd/system/`或`~/.config/systemd/user/`（作为用户服务）文件夹中即可。
+将范例文件下载至`/etc/systemd/system/`或`~/.config/systemd/user/`（作为用户服务）文件夹后，修改文件内的路径即可。
 
 #### OpenWrt init.d
-研究中，尽请期待…
+[范例文件](/sample/openwrt-initd/eshell)
+
+> 注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
+>
+> [OpenWrt服务使用教程（英文）](https://openwrt.org/docs/guide-user/base-system/managing_services) | [OpenWrt日志查看教程（英文）](https://openwrt.org/docs/guide-user/base-system/log.essentials)
+
+将范例文件下载至`/etc/init.d`文件夹后，修改文件内的路径即可。
 
 ## 初始化文件
 初始化文件能在不修改脚本的前提下为脚本新增/修改功能、函数以及变量。其定位与Bash中的`.bashrc`一致。
