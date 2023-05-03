@@ -40,7 +40,7 @@ sudo apt update && sudo apt install curl && sudo curl --create-dirs -L "https://
 
 ### OpenWrt
 ```Shell
-opkg update && opkg install curl && curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/local/bin/eshell" && chmod +x "/usr/local/bin/eshell"
+opkg update && opkg install curl && curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/eshell.sh" -o "/usr/bin/eshell" && chmod +x "/usr/bin/eshell"
 ```
 
 > 以上命令将一键安装CUrl并下载本仓库的eshell.sh文件至`/bin/eshell`，最后赋予执行权限。
