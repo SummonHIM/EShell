@@ -271,7 +271,7 @@ getActivateEther() {
 # Params: <IP>
 # Return: MAC
 getMAC() {
-    echo $(ip addr | grep -3 $1 | awk '/ether/ { print $2 }' | head -1)
+    echo $(ip addr | grep -C3 $1 | awk '/ether/ { print $2 }' | head -1)
 }
 
 # 获取本地IP地址
