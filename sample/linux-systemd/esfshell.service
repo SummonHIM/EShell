@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/路径/到你的/eshell -D
+ExecStart=/路径/到你的/esfshell -D
 
 [Install]
 WantedBy=multi-user.target

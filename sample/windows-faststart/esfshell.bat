@@ -16,7 +16,7 @@ if "%*" == "--help" (
     call:eshellHelp
     goto exitEShell
 ) else (
-    C:\路径到你的\msys2\msys2_shell.cmd -defterm -here -no-start -msys /路径到你的/eshell %*
+    C:\路径到你的\msys2\msys2_shell.cmd -defterm -here -no-start -msys /路径到你的/esfshell %*
 )
 
 :eshellHelp
