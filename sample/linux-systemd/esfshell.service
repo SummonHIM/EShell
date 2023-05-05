@@ -1,5 +1,5 @@
 [Unit]
-Description=EShell daemon.
+Description=EsurfingShell Daemon.
 After=network.target
 
 [Service]

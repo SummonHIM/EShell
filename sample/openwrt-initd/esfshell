@@ -1,12 +1,12 @@
 #!/bin/sh /etc/rc.common
-NAME=eshell
+NAME=EsurfingShell
 DESCRIPTION="天翼校园Shell脚本"
 USE_PROCD=1
 START=99
 
 start_service()
 {
-    procd_open_instance eshell
+    procd_open_instance esfshell
     procd_set_param respawn
     procd_set_param env _ES_HOMEPATH=/路径/到你的/esfshell/主目录
     procd_set_param command /路径/到你的/esfshell -D

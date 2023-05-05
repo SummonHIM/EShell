@@ -1,5 +1,5 @@
 #!/bin/bash
-# EShell by SummonHIM. URL: https://github.com/SummonHIM/EShell
+# EsurfingShell by SummonHIM. URL: https://github.com/SummonHIM/EsurfingShell
 # Original author: @Otm-Z. Create on 2022/03/22. URL: https://github.com/Z446C/ESC-Z
 #
 
