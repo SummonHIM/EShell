@@ -1,4 +1,4 @@
-# EShell
+# EsurfingShell
 基于Bash Shell的天翼校园登录脚本
 
 ## 脚本说明
@@ -30,17 +30,17 @@
 ## 快速安装
 ### Arch Linux/Windows MSYS（请注意阅读下方注释）
 ```Shell
-sudo pacman -S curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/esfshell.sh" -o "/usr/local/bin/esfshell" && sudo chmod +x "/usr/local/bin/esfshell"
+sudo pacman -S curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EsurfingShell/raw/master/esfshell.sh" -o "/usr/local/bin/esfshell" && sudo chmod +x "/usr/local/bin/esfshell"
 ```
 
 ### Ubuntu/Android Termux（请注意阅读下方注释）
 ```Shell
-sudo apt update && sudo apt install curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/esfshell.sh" -o "/usr/local/bin/esfshell" && sudo chmod +x "/usr/local/bin/esfshell"
+sudo apt update && sudo apt install curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EsurfingShell/raw/master/esfshell.sh" -o "/usr/local/bin/esfshell" && sudo chmod +x "/usr/local/bin/esfshell"
 ```
 
 ### OpenWrt
 ```Shell
-opkg update && opkg install curl && curl --create-dirs -L "https://github.com/SummonHIM/EShell/raw/master/esfshell.sh" -o "/usr/bin/esfshell" && chmod +x "/usr/bin/esfshell"
+opkg update && opkg install curl && curl --create-dirs -L "https://github.com/SummonHIM/EsurfingShell/raw/master/esfshell.sh" -o "/usr/bin/esfshell" && chmod +x "/usr/bin/esfshell"
 ```
 
 > 以上命令将一键安装CUrl并下载本仓库的esfshell.sh文件至`/bin/esfshell`，最后赋予执行权限。
