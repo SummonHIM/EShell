@@ -84,18 +84,18 @@ if [[ $LANG =~ "zh_CN" ]] || [[ $_ES_LANG =~ "zh_CN" ]]; then
     help() {
         echo "用法：${0##*/} <操作> [选项] [...]"
         echo "操作："
-        printf "   ${0##*/} {-L --login}\t登陆到校园网\n"
-        printf "   ${0##*/} {-O --logout}\t注销校园网\n"
-        printf "   ${0##*/} {-D --daemon}\t监控模式\n"
-        printf "   ${0##*/} {-C --custom}\t调用自定义函数\n"
-        printf "   ${0##*/} {-h --help}\t\t显示本帮助\n"
+        printf "   ${0##*/} {-L --login}\t\t登陆到校园网\n"
+        printf "   ${0##*/} {-O --logout}\t\t注销校园网\n"
+        printf "   ${0##*/} {-D --daemon}\t\t监控模式\n"
+        printf "   ${0##*/} {-C --custom} <函数名>\t调用自定义函数\n"
+        printf "   ${0##*/} {-h --help}\t\t\t显示本帮助\n"
         echo "选项："
-        printf "   -a, --account\t账号\n"
-        printf "   -p, --password\t密码\n"
-        printf "   -d, --device\t\t指定网口\n"
-        printf "   -h, --home\t\t指定主目录\n"
-        printf "   -f, --force\t\t强制登陆\n"
-        printf "   -v, --verbose\t显示详细信息\n"
+        printf "   -a, --account <账号>\t\t账号\n"
+        printf "   -p, --password <密码>\t密码\n"
+        printf "   -d, --device <网口>\t\t指定网口\n"
+        printf "   -f, --force\t\t\t强制登陆\n"
+        printf "   -v, --verbose\t\t显示详细信息\n"
+        printf "       --home <主目录>\t\t指定主目录\n"
     }
 else
     _ES_LANG_LOG_TOOLARGE="Log size too large, deleting outdate log..."
@@ -155,18 +155,18 @@ else
     help() {
         echo "Usage：${0##*/} <Operation> [Options] [...]"
         echo "Operation:"
-        printf "   ${0##*/} {-L --login}\tLogin into esurfing network\n"
-        printf "   ${0##*/} {-O --logout}\tLogout esurfing network\n"
-        printf "   ${0##*/} {-D --daemon}\tDaemon mode\n"
-        printf "   ${0##*/} {-C --custom}\tCall custom function\n"
-        printf "   ${0##*/} {-h --help}\t\tShow this help\n"
+        printf "   ${0##*/} {-L --login}\t\tLogin into esurfing network\n"
+        printf "   ${0##*/} {-O --logout}\t\tLogout esurfing network\n"
+        printf "   ${0##*/} {-D --daemon}\t\tDaemon mode\n"
+        printf "   ${0##*/} {-C --custom} <Function>\tCall custom function\n"
+        printf "   ${0##*/} {-h --help}\t\t\tShow this help\n"
         echo "Options:"
-        printf "   -a, --account\tAccount\n"
-        printf "   -p, --password\tPassword\n"
-        printf "   -d, --device\t\tSpecify network interface\n"
-        printf "   -h, --home\t\tSpecify home path\n"
-        printf "   -f, --force\t\tForce login\n"
-        printf "   -v, --verbose\tBe verbose\n"
+        printf "   -a, --account <Account>\tAccount\n"
+        printf "   -p, --password <Password>\tPassword\n"
+        printf "   -d, --device <Interface>\tSpecify network interface\n"
+        printf "   -f, --force\t\t\tForce login\n"
+        printf "   -v, --verbose\t\tBe verbose\n"
+        printf "       --home <Home path>\tSpecify home path\n"
     }
 fi
 
@@ -547,23 +547,26 @@ logout() {
         printl Warning "$_ES_LANG_LOGOUT_RUNFILE_LOST_A $_ES_HOMEPATH/esfshell.run $_ES_LANG_LOGOUT_RUNFILE_LOST_B"
     fi
 
-    # 若变量缺失值则尝试获取
-    if [ -z $_ES_CONFIG_CLIENTIP ]; then
-        printl Warning "$_ES_LANG_LOGOUT_GET_CLIENT_FAILED"
-        _ES_CONFIG_CLIENTIP=$(getLocalIP "$_ES_GLOBAL_DEVICE")
+    if [[ $_ES_FORCE != true ]]; then
+        # 若变量缺失值则尝试获取
+        if [ -z $_ES_CONFIG_CLIENTIP ]; then
+            printl Warning "$_ES_LANG_LOGOUT_GET_CLIENT_FAILED"
+            _ES_CONFIG_CLIENTIP=$(getLocalIP "$_ES_GLOBAL_DEVICE")
+        fi
+        if [ -z $_ES_CONFIG_MAC ]; then
+            printl Warning "$_ES_LANG_LOGOUT_GET_MAC_FAILED"
+            _ES_CONFIG_MAC=$(getMAC $_ES_CONFIG_CLIENTIP)
+        fi
+        if [ -z $_ES_CONFIG_NASIP ]; then
+            printl Warning "$_ES_LANG_LOGOUT_GET_NASIP_FAILED"
+            read -p "$_ES_LANG_LOGOUT_GET_NASIP_MANUAL " _ES_CONFIG_NASIP
+        fi
+        if [ -z "$_ES_CONFIG_COOKIE" ]; then
+            printl Warning "$_ES_LANG_LOGOUT_GET_COOKIE_FAILED"
+            read -p "$_ES_LANG_LOGOUT_GET_COOKIE_MANUAL " _ES_CONFIG_COOKIE
+        fi
     fi
-    if [ -z $_ES_CONFIG_MAC ]; then
-        printl Warning "$_ES_LANG_LOGOUT_GET_MAC_FAILED"
-        _ES_CONFIG_MAC=$(getMAC $_ES_CONFIG_CLIENTIP)
-    fi
-    if [ -z $_ES_CONFIG_NASIP ]; then
-        printl Warning "$_ES_LANG_LOGOUT_GET_NASIP_FAILED"
-        read -p "$_ES_LANG_LOGOUT_GET_NASIP_MANUAL " _ES_CONFIG_NASIP
-    fi
-    if [ -z "$_ES_CONFIG_COOKIE" ]; then
-        printl Warning "$_ES_LANG_LOGOUT_GET_COOKIE_FAILED"
-        read -p "$_ES_LANG_LOGOUT_GET_COOKIE_MANUAL " _ES_CONFIG_COOKIE
-    fi
+
     if [[ $_ES_VERBOSE == true ]]; then
         printl Info "$_ES_LANG_LOGOUT_GET_CLIENTIP $_ES_CONFIG_CLIENTIP"
         printl Info "$_ES_LANG_LOGOUT_GET_NASIP $_ES_CONFIG_NASIP"
@@ -634,10 +637,6 @@ while [[ $# -gt 0 ]]; do
             _ES_FORCE=true
             shift
             ;;
-        -h | --home)
-            _ES_HOMEPATH=$2
-            shift 2
-            ;;
         -p | --password)
             _ES_ACC_PASSWD=$2
             shift 2
@@ -645,6 +644,10 @@ while [[ $# -gt 0 ]]; do
         -v | --verbose)
             _ES_VERBOSE=true
             shift
+            ;;
+        --home)
+            _ES_HOMEPATH=$2
+            shift 2
             ;;
         *)
             break

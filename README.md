@@ -53,18 +53,18 @@ opkg update && opkg install curl && curl --create-dirs -L "https://github.com/Su
 ```
 用法：esfshell <操作> [选项] [...]
 操作：
-   esfshell {-L --login}	登陆到校园网
-   esfshell {-O --logout}	注销校园网
-   esfshell {-D --daemon}	监控模式
-   esfshell {-C --custom}	调用自定义函数
+   esfshell {-L --login}		登陆到校园网
+   esfshell {-O --logout}		注销校园网
+   esfshell {-D --daemon}		监控模式
+   esfshell {-C --custom} <函数名>	调用自定义函数
    esfshell {-h --help}		显示本帮助
 选项：
-   -a, --account	账号
-   -p, --password	密码
-   -d, --device		指定网口
-   -h, --home		指定主目录
-   -f, --force		强制登陆
-   -v, --verbose	显示详细信息
+   -a, --account <账号>		账号
+   -p, --password <密码>	密码
+   -d, --device <网口>		指定网口
+   -f, --force			强制登陆
+   -v, --verbose		显示详细信息
+       --home <主目录>		指定主目录
 ```
 
 ### 手把手教你最简单的登陆
