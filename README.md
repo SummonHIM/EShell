@@ -62,6 +62,7 @@ opkg update && opkg install curl && curl --create-dirs -L "https://github.com/Su
    -a, --account	账号
    -p, --password	密码
    -d, --device		指定网口
+   -h, --home		指定主目录
    -f, --force		强制登陆
    -v, --verbose	显示详细信息
 ```
@@ -127,12 +128,17 @@ _ES_ACC_PASSWD=登录密码
 _ES_GLOBAL_DEVICE=指定网卡
 
 _ES_HOMEPATH=主文件夹路径，用于存储初始化文件、登录缓存和运行日志
+_ES_LANG=强制使用指定语言
+
+_ES_FORCE=启用强制登陆。需要提前指定 $_ES_NC_URLLOCATION 变量
+_ES_VERBOSE=显示详细信息
 
 _ES_DAEMON_SLEEPTIME=监听模式执行间隔（单位详见sleep --help）
 
 _ES_LOG_ENABLE=是否启用日志。布尔值，默认False
 _ES_LOG_PATH=日志路径。默认"$_ES_HOMEPATH/esfshell.log"
 _ES_LOG_MAXSIZE=日志最大大小，超出后将移除旧日志
+_ES_LOG_TAILLINE=超出日志大小后裁剪保留的行数
 _ES_LOG_TIMESTAMP=日志内容时间戳，默认"+%Y-%m-%d %H:%M:%S"
 
 # 如有特殊需要，否则最好不要编辑以下内容
@@ -158,6 +164,7 @@ _ES_CONFIG_SCHOOLID=登录/注销学校ID
 
 _ES_NC_URL=HTTP204验证服务器，默认"http://connect.rom.miui.com/generate_204"
 _ES_REDIR_URL=网络登录跳转检测链接，用于检测是否跳转到该登录页。默认"enet.10000.gd.cn:10001"
+_ES_NC_URLLOCATION=强制使用该登录链接，配合-f/--force使用
 ```
 
 ## 参考项目

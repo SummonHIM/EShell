@@ -93,6 +93,7 @@ if [[ $LANG =~ "zh_CN" ]] || [[ $_ES_LANG =~ "zh_CN" ]]; then
         printf "   -a, --account\t账号\n"
         printf "   -p, --password\t密码\n"
         printf "   -d, --device\t\t指定网口\n"
+        printf "   -h, --home\t\t指定主目录\n"
         printf "   -f, --force\t\t强制登陆\n"
         printf "   -v, --verbose\t显示详细信息\n"
     }
@@ -163,6 +164,7 @@ else
         printf "   -a, --account\tAccount\n"
         printf "   -p, --password\tPassword\n"
         printf "   -d, --device\t\tSpecify network interface\n"
+        printf "   -h, --home\t\tSpecify home path\n"
         printf "   -f, --force\t\tForce login\n"
         printf "   -v, --verbose\tBe verbose\n"
     }
@@ -193,7 +195,7 @@ createLog() {
             rm -f $_ES_LOG_PATH
             mv $_ES_LOG_PATH.tmp $_ES_LOG_PATH
         else
-            if [[ $ES_VERBOSE == true ]]; then
+            if [[ $_ES_VERBOSE == true ]]; then
                 printl Info "$_ES_LANG_LOG_SIZE $((size / 1024))MiB/$((maxsize / 1024))MiB"
             fi
         fi
@@ -382,7 +384,7 @@ logicActivateEther() {
     if [ -z "$_ES_GLOBAL_DEVICE" ]; then
         _ES_GLOBAL_DEVICE=$(getActivateEther)
         if [ "$_ES_GLOBAL_DEVICE" ]; then
-            if [[ $ES_VERBOSE == true ]]; then
+            if [[ $_ES_VERBOSE == true ]]; then
                 printl Info "$_ES_LANG_ACTIVATE_ETHER $_ES_GLOBAL_DEVICE"
             fi
         else
@@ -397,20 +399,20 @@ loginEnet() {
     # 获取用户IP和服务器IP
     printl Info "$_ES_LANG_LOGIN_GET_USERDATA"
 
-    _ES_GLOBAL_ENET_URL="http://$(getEnetHost $urlLocation)"
+    _ES_GLOBAL_ENET_URL="http://$(getEnetHost $_ES_NC_URLLOCATION)"
 
-    _ES_CONFIG_CLIENTIP=$(getIP $urlLocation clientip)
+    _ES_CONFIG_CLIENTIP=$(getIP $_ES_NC_URLLOCATION clientip)
     if [ $_ES_CONFIG_CLIENTIP ]; then
-        if [[ $ES_VERBOSE == true ]]; then
+        if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_CLIENTIP $_ES_CONFIG_CLIENTIP"
         fi
     else
         printl Error "$_ES_LANG_LOGIN_GET_CLIENTIP_FAILED"
         _ES_EXIT_CODE=1
     fi
-    _ES_CONFIG_NASIP=$(getIP $urlLocation nasip)
+    _ES_CONFIG_NASIP=$(getIP $_ES_NC_URLLOCATION nasip)
     if [ $_ES_CONFIG_NASIP ]; then
-        if [[ $ES_VERBOSE == true ]]; then
+        if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_NASIP $_ES_CONFIG_NASIP"
         fi
     else
@@ -422,14 +424,14 @@ loginEnet() {
     if [ $_ES_CONFIG_CLIENTIP ]; then
         _ES_CONFIG_MAC=$(getMAC $_ES_CONFIG_CLIENTIP)
     else
-        if [[ $ES_VERBOSE == true ]]; then
+        if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_MAC_RETRY"
         fi
         _ES_CONFIG_CLIENTIP=$(getLocalIP "$_ES_GLOBAL_DEVICE")
         _ES_CONFIG_MAC=$(getMAC $_ES_CONFIG_CLIENTIP)
     fi
     if [ $_ES_CONFIG_MAC ]; then
-        if [[ $ES_VERBOSE == true ]]; then
+        if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_MAC $_ES_CONFIG_MAC"
         fi
     else
@@ -442,7 +444,7 @@ loginEnet() {
         _ES_CONFIG_SCHOOLID=$(getSchoolId $_ES_CONFIG_CLIENTIP $_ES_CONFIG_NASIP $_ES_CONFIG_MAC)
     fi
     if [ $_ES_CONFIG_SCHOOLID ]; then
-        if [[ $ES_VERBOSE == true ]]; then
+        if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_SCHOOLID $_ES_CONFIG_SCHOOLID"
         fi
     else
@@ -455,7 +457,7 @@ loginEnet() {
         _ES_CONFIG_COOKIE=$(getCookie $_ES_CONFIG_SCHOOLID)
     fi
     if [ "$_ES_CONFIG_COOKIE" ]; then
-        if [[ $ES_VERBOSE == true ]]; then
+        if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_COOKIE $_ES_CONFIG_COOKIE"
         fi
     else
@@ -466,7 +468,7 @@ loginEnet() {
     # 获取验证码
     _ES_CONFIG_VERIFYCODE=$(getVerifyCode $_ES_ACC_USERNAME $_ES_CONFIG_CLIENTIP $_ES_CONFIG_NASIP $_ES_CONFIG_MAC $_ES_CONFIG_COOKIE)
     if [ $_ES_CONFIG_VERIFYCODE ]; then
-        if [[ $ES_VERBOSE == true ]]; then
+        if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_VERIFYCODE $_ES_CONFIG_VERIFYCODE"
         fi
     else
@@ -479,7 +481,7 @@ loginEnet() {
         printl Info "$_ES_LANG_LOGIN_ING"
         if loginTask $_ES_ACC_USERNAME $_ES_ACC_PASSWD $_ES_CONFIG_CLIENTIP $_ES_CONFIG_NASIP $_ES_CONFIG_MAC "$_ES_CONFIG_COOKIE" $_ES_CONFIG_VERIFYCODE; then
             printl Info "$_ES_LANG_LOGIN_SUCCESS"
-            echo "_ES_GLOBAL_ENET_URL=$_ES_GLOBAL_ENET_URL" >>$_ES_HOMEPATH/esfshell.run
+            echo "_ES_GLOBAL_ENET_URL=$_ES_GLOBAL_ENET_URL" >$_ES_HOMEPATH/esfshell.run
             echo "_ES_CONFIG_CLIENTIP=$_ES_CONFIG_CLIENTIP" >>$_ES_HOMEPATH/esfshell.run
             echo "_ES_CONFIG_NASIP=$_ES_CONFIG_NASIP" >>$_ES_HOMEPATH/esfshell.run
             echo "_ES_CONFIG_MAC=$_ES_CONFIG_MAC" >>$_ES_HOMEPATH/esfshell.run
@@ -487,7 +489,7 @@ loginEnet() {
         else
             printl Error "$_ES_LANG_LOGIN_FAILED"
         fi
-        if [[ $ES_VERBOSE == true ]]; then
+        if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_RESULT $_ES_RESULT_LOGING"
         fi
     else
@@ -500,31 +502,40 @@ loginEnet() {
 login() {
     # 网络检测，若可以连接外网则退出
     printl Info "$_ES_LANG_LOGIN_CHECK"
-    if [[ $ES_FORCE != true ]]; then
+    if [[ $_ES_FORCE != true ]]; then
         if networkCheck $_ES_NC_URL; then
             printl Info "$_ES_LANG_LOGIN_CHECK_SUCCESS"
             return
         fi
     fi
     # 开始登陆
-    local urlCode=$(getUrlStatus $_ES_NC_URL code)
-    local urlLocation=$(getUrlStatus $_ES_NC_URL location)
-    if [[ "$urlCode" == "302" ]]; then
-        # 获取重定向地址
-        printl Info "$_ES_LANG_LOGIN_CHECK_NEED"
-        if [[ $ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_CHECK_REDIRURL $urlLocation"
-        fi
-        if [[ $urlLocation =~ $_ES_REDIR_URL ]]; then
+    if [[ $_ES_FORCE == true ]]; then
+        if [[ $_ES_NC_URLLOCATION =~ $_ES_REDIR_URL ]]; then
             loginEnet
         else
             printl Error "$_ES_LANG_LOGIN_CHECK_REDIRURL_FAILED"
             _ES_EXIT_CODE=1
         fi
     else
-        printl Error "$_ES_LANG_LOGIN_CHECK_FAILED"
-        _ES_EXIT_CODE=1
-        return
+        local urlCode=$(getUrlStatus $_ES_NC_URL code)
+        _ES_NC_URLLOCATION=$(getUrlStatus $_ES_NC_URL location)
+        if [[ "$urlCode" == "302" ]]; then
+            # 获取重定向地址
+            printl Info "$_ES_LANG_LOGIN_CHECK_NEED"
+            if [[ $_ES_VERBOSE == true ]]; then
+                printl Info "$_ES_LANG_LOGIN_CHECK_REDIRURL $_ES_NC_URLLOCATION"
+            fi
+            if [[ $_ES_NC_URLLOCATION =~ $_ES_REDIR_URL ]]; then
+                loginEnet
+            else
+                printl Error "$_ES_LANG_LOGIN_CHECK_REDIRURL_FAILED"
+                _ES_EXIT_CODE=1
+            fi
+        else
+            printl Error "$_ES_LANG_LOGIN_CHECK_FAILED"
+            _ES_EXIT_CODE=1
+            return
+        fi
     fi
 }
 
@@ -553,7 +564,7 @@ logout() {
         printl Warning "$_ES_LANG_LOGOUT_GET_COOKIE_FAILED"
         read -p "$_ES_LANG_LOGOUT_GET_COOKIE_MANUAL " _ES_CONFIG_COOKIE
     fi
-    if [[ $ES_VERBOSE == true ]]; then
+    if [[ $_ES_VERBOSE == true ]]; then
         printl Info "$_ES_LANG_LOGOUT_GET_CLIENTIP $_ES_CONFIG_CLIENTIP"
         printl Info "$_ES_LANG_LOGOUT_GET_NASIP $_ES_CONFIG_NASIP"
         printl Info "$_ES_LANG_LOGOUT_GET_MAC $_ES_CONFIG_MAC"
@@ -570,7 +581,7 @@ logout() {
         printl Error "$_ES_LANG_LOGOUT_FAILED"
         _ES_EXIT_CODE=1
     fi
-    if [[ $ES_VERBOSE == true ]]; then
+    if [[ $_ES_VERBOSE == true ]]; then
         printl Info "$_ES_LANG_LOGOUT_RESULT $_ES_RESULT_LOGOUT"
     fi
 }
@@ -585,60 +596,11 @@ daemon() {
     done
 }
 
-main() {
-    # 加载初始化文件
-    if [ -e "$_ES_HOMEPATH/esfshellrc.sh" ]; then
-        . $_ES_HOMEPATH/esfshellrc.sh
-    fi
-
-    if [[ "$funcCall" == "custom" ]]; then
-        $funcCallCustom
-    fi
-
-    # Home目录不存在则创建
-    if [ ! -d $_ES_HOMEPATH ]; then
-        if [[ $ES_VERBOSE == true ]]; then
-            printl Warning "$_ES_LANG_MAIN_HOMEPATH_MKDIR_A $_ES_HOMEPATH $_ES_LANG_MAIN_HOMEPATH_MKDIR_B"
-        fi
-        mkdir -p $_ES_HOMEPATH
-    fi
-
-    if [ -v $funcCall ]; then
-        help
-    else
-        if [ $_ES_LOG_ENABLE == true ]; then
-            createLog
-        fi
-        # 检测用户名和密码
-        if [ -z $_ES_ACC_USERNAME ]; then
-            printl Warning "$_ES_LANG_MAIN_USERNAME_EMPTY"
-            read -p "$_ES_LANG_MAIN_USERNAME_MANUAL " _ES_ACC_USERNAME
-        fi
-        if [ -z $_ES_ACC_PASSWD ]; then
-            printl Warning "$_ES_LANG_MAIN_PASSWD_EMPTY"
-            read -sp "$_ES_LANG_MAIN_PASSWD_MANUAL " _ES_ACC_PASSWD
-            echo ""
-        fi
-
-        logicActivateEther
-
-        # 登录/注销
-        if [[ "$funcCall" == "login" ]]; then
-            login
-        elif [[ "$funcCall" == "logout" ]]; then
-            logout
-        elif [[ "$funcCall" == "daemon" ]]; then
-            daemon
-        fi
-    fi
-}
-
 # 解析参数
 while [[ $# -gt 0 ]]; do
     case "${1}" in
     -C | --custom)
-        funcCall="custom"
-        funcCallCustom=$2
+        funcCall=$2
         shift 2
         ;;
     -D | --daemon)
@@ -654,7 +616,8 @@ while [[ $# -gt 0 ]]; do
         shift
         ;;
     -h | --help)
-        help
+        funcCall="help"
+        shift
         ;;
     esac
     while true; do
@@ -668,7 +631,7 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         -f | --force)
-            ES_FORCE=true
+            _ES_FORCE=true
             shift
             ;;
         -h | --home)
@@ -680,7 +643,7 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         -v | --verbose)
-            ES_VERBOSE=true
+            _ES_VERBOSE=true
             shift
             ;;
         *)
@@ -691,6 +654,39 @@ while [[ $# -gt 0 ]]; do
     break
 done
 
-main
+# 加载初始化文件
+if [ -e "$_ES_HOMEPATH/esfshellrc.sh" ]; then
+    . $_ES_HOMEPATH/esfshellrc.sh
+fi
+
+# Home目录不存在则创建
+if [ ! -d $_ES_HOMEPATH ]; then
+    if [[ $_ES_VERBOSE == true ]]; then
+        printl Warning "$_ES_LANG_MAIN_HOMEPATH_MKDIR_A $_ES_HOMEPATH $_ES_LANG_MAIN_HOMEPATH_MKDIR_B"
+    fi
+    mkdir -p $_ES_HOMEPATH
+fi
+
+if [ -v $funcCall ]; then
+    help
+else
+    if [ $_ES_LOG_ENABLE == true ]; then
+        createLog
+    fi
+    # 检测用户名和密码
+    if [ -z $_ES_ACC_USERNAME ]; then
+        printl Warning "$_ES_LANG_MAIN_USERNAME_EMPTY"
+        read -p "$_ES_LANG_MAIN_USERNAME_MANUAL " _ES_ACC_USERNAME
+    fi
+    if [ -z $_ES_ACC_PASSWD ]; then
+        printl Warning "$_ES_LANG_MAIN_PASSWD_EMPTY"
+        read -sp "$_ES_LANG_MAIN_PASSWD_MANUAL " _ES_ACC_PASSWD
+        echo ""
+    fi
+
+    logicActivateEther
+
+    $funcCall
+fi
 
 exit $_ES_EXIT_CODE

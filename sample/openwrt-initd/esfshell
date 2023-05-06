@@ -14,7 +14,7 @@ start_service()
     procd_close_instance
 }
 
-stop_service()
+service_stopped()
 {
-    /路径/到你的/esfshell -O
+    _ES_HOMEPATH=/路径/到你的/esfshell/主目录 /路径/到你的/esfshell -O
 }
