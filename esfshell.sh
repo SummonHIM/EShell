@@ -93,7 +93,7 @@ if [[ $LANG =~ "zh_CN" ]] || [[ $_ES_LANG =~ "zh_CN" ]]; then
         printf "   -a, --account <账号>\t\t账号\n"
         printf "   -p, --password <密码>\t密码\n"
         printf "   -d, --device <网口>\t\t指定网口\n"
-        printf "   -f, --force\t\t\t强制登陆\n"
+        printf "   -f, --force\t\t\t强制操作\n"
         printf "   -v, --verbose\t\t显示详细信息\n"
         printf "       --home <主目录>\t\t指定主目录\n"
     }
@@ -164,7 +164,7 @@ else
         printf "   -a, --account <Account>\tAccount\n"
         printf "   -p, --password <Password>\tPassword\n"
         printf "   -d, --device <Interface>\tSpecify network interface\n"
-        printf "   -f, --force\t\t\tForce login\n"
+        printf "   -f, --force\t\t\tForce action\n"
         printf "   -v, --verbose\t\tBe verbose\n"
         printf "       --home <Home path>\tSpecify home path\n"
     }
