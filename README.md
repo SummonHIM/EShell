@@ -57,7 +57,7 @@ opkg update && opkg install curl && curl --create-dirs -L "https://github.com/Su
    esfshell {-O --logout}	注销校园网
    esfshell {-D --daemon}	监控模式
    esfshell {-C --custom}	调用自定义函数
-   esfshell {-h --help}	显示本帮助
+   esfshell {-h --help}		显示本帮助
 选项：
    -a, --account	账号
    -p, --password	密码
