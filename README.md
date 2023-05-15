@@ -30,7 +30,7 @@
 ## 快速安装
 ### Arch Linux/Windows MSYS（请注意阅读下方注释）
 ```Shell
-sudo pacman -Syu bash curl && sudo sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
+sudo pacman -Su bash curl && sudo sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
 ```
 
 ### Ubuntu/Android Termux（请注意阅读下方注释）
