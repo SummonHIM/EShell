@@ -47,7 +47,7 @@ opkg update && opkg install bash curl && sh -c "$(curl -fsSL https://fastly.jsde
 > 
 > 其他Unix系系统也大同小异，只需要修改以上命令为系统常用的包管理器即可。
 > 
-> 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。Android Termux需要修改`/usr/local/bin/`文件夹为`/data/data/com.termux/files/usr/bin/`。
+> 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。Android Termux需要修改`/usr/bin/`文件夹为`/data/data/com.termux/files/usr/bin/`。
 
 ## 如何使用？
 ```
