@@ -1,4 +1,4 @@
-[ -z $_ES_INSTALL_URL ] && _ES_INSTALL_URL="https://cdn.jsdelivr.net/gh/SummonHIM/EsurfingShell@master"
+[ -z $_ES_INSTALL_URL ] && _ES_INSTALL_URL="https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master"
 [ -z $_ES_INSTALL_ESFSHELL ] && _ES_INSTALL_ESFSHELL="esfshell"
 [ -z $_ES_INSTALL_ESFSHELL_LOC ] && _ES_INSTALL_ESFSHELL_LOC="/usr/bin"
 [ -z $_ES_INSTALL_SYSTEMD ] && _ES_INSTALL_SYSTEMD="esfshell.service"
