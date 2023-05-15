@@ -42,6 +42,8 @@ fi
 echo "Downloading $_ES_INSTALL_URL/$_ES_INSTALL_ESFSHELL.sh into $_ES_INSTALL_ESFSHELL_LOC/$_ES_INSTALL_ESFSHELL..."
 if ! $_get "$_ES_INSTALL_URL/$_ES_INSTALL_ESFSHELL.sh" -o "$_ES_INSTALL_ESFSHELL_LOC/$_ES_INSTALL_ESFSHELL"; then
     echo "Download error."
+else
+    chmod +x "$_ES_INSTALL_ESFSHELL_LOC/$_ES_INSTALL_ESFSHELL"
 fi
 
 if [ -d "$_ES_INSTALL_SYSTEMD_LOC" ]; then
@@ -59,6 +61,8 @@ elif [ -d "$_ES_INSTALL_INITD_LOC" ]; then
     echo "Downloading $_ES_INSTALL_URL/sample/openwrt-initd/$_ES_INSTALL_INITD into $_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD..."
     if ! $_get "$_ES_INSTALL_URL/sample/openwrt-initd/$_ES_INSTALL_INITD" -o "$_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD"; then
         echo "Download error."
+    else
+        chmod +x "$_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD"
     fi
 else
     echo "Systemd or init.d not found. Skip service installation."

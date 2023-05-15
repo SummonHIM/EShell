@@ -30,22 +30,22 @@
 ## 快速安装
 ### Arch Linux/Windows MSYS（请注意阅读下方注释）
 ```Shell
-sudo pacman -S curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EsurfingShell/raw/master/esfshell.sh" -o "/usr/local/bin/esfshell" && sudo chmod +x "/usr/local/bin/esfshell"
+sudo pacman -Syu bash curl && sudo sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
 ```
 
 ### Ubuntu/Android Termux（请注意阅读下方注释）
 ```Shell
-sudo apt update && sudo apt install curl && sudo curl --create-dirs -L "https://github.com/SummonHIM/EsurfingShell/raw/master/esfshell.sh" -o "/usr/local/bin/esfshell" && sudo chmod +x "/usr/local/bin/esfshell"
+sudo apt update && sudo apt install bash curl && sudo sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
 ```
 
 ### OpenWrt
 ```Shell
-opkg update && opkg install curl && curl --create-dirs -L "https://github.com/SummonHIM/EsurfingShell/raw/master/esfshell.sh" -o "/usr/bin/esfshell" && chmod +x "/usr/bin/esfshell"
+opkg update && opkg install bash curl && sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
 ```
 
-> 以上命令将一键安装CUrl并下载本仓库的esfshell.sh文件至`/bin/esfshell`，最后赋予执行权限。
+> 以上命令将一键安装Bash和curl并下载本仓库的esfshell.sh文件至`/usr/bin`，最后赋予执行权限。
 > 
-> 其他Unix系系统也大同小异，只需要把opkg修改为系统常用的包管理器即可。
+> 其他Unix系系统也大同小异，只需要修改以上命令为系统常用的包管理器即可。
 > 
 > 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。Android Termux需要修改`/usr/local/bin/`文件夹为`/data/data/com.termux/files/usr/bin/`。
 
@@ -84,12 +84,15 @@ esfshell -O
 ```
 
 ### 作为系统服务监控网络
+> 注：以下服务文件默认使用`/etc/esfshell`作为主目录
 #### Linux systemd
-[范例文件](/sample/linux-systemd/esfshell.service)
+[范例文件](/sample/linux-systemd/esfshell.service) | [多网卡范例文件](/sample/linux-systemd/esfshell@.service)
 
 > 注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
 
 将范例文件下载至`/etc/systemd/system/`或`~/.config/systemd/user/`（作为用户服务）文件夹后，修改文件内的路径即可。
+
+可使用`esfshell@网卡名称`来自定义默认网卡。详细信息可参阅[多网卡范例文件](/sample/linux-systemd/esfshell@.service)源代码。
 
 #### OpenWrt init.d
 [范例文件](/sample/openwrt-initd/esfshell)
@@ -99,6 +102,8 @@ esfshell -O
 > [OpenWrt服务使用教程（英文）](https://openwrt.org/docs/guide-user/base-system/managing_services) | [OpenWrt日志查看教程（英文）](https://openwrt.org/docs/guide-user/base-system/log.essentials)
 
 将范例文件下载至`/etc/init.d`文件夹后，修改文件内的路径即可。
+
+可在`/etc/esfshell`中新建名为网卡名称的文件夹来自定义默认网卡。若`/etc/esfshell`中没有文件夹则使用`/etc/esfshell`作为主目录。
 
 ## 初始化文件
 初始化文件能在不修改脚本的前提下为脚本新增/修改功能、函数以及变量。其定位与Bash中的`.bashrc`一致。
@@ -127,7 +132,7 @@ _ES_ACC_USERNAME=登录用户名
 _ES_ACC_PASSWD=登录密码
 _ES_GLOBAL_DEVICE=指定网卡
 
-_ES_HOMEPATH=主文件夹路径，用于存储初始化文件、登录缓存和运行日志
+_ES_HOMEPATH=主目录路径，用于存储初始化文件、登录缓存和运行日志
 _ES_LANG=强制使用指定语言
 
 _ES_FORCE=启用强制登陆。需要提前指定 $_ES_NC_URLLOCATION 变量
@@ -155,7 +160,7 @@ _ES_GLOBAL_URL_LOGOUT="/client/logout"
 # 如有特殊需要，否则最好不要编辑以上内容
 
 # 以下内容一般都是自动获取的。可以不用编辑
-_ES_CONFIG_COOKIE=登录/注销Cookie。
+_ES_CONFIG_COOKIE=登录/注销Cookie
 _ES_CONFIG_VERIFYCODE=登录验证码
 _ES_CONFIG_MAC=登录/注销客户端MAC
 _ES_CONFIG_CLIENTIP=登录/注销客户端IP
