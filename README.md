@@ -43,12 +43,13 @@ sudo apt update && sudo apt install bash curl && sudo sh -c "$(curl -fsSL https:
 opkg update && opkg install bash curl && sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
 ```
 
-> 以上命令将一键安装Bash和curl并下载本仓库的esfshell.sh文件至`/usr/bin`，最后赋予执行权限。
-> 
-> 其他Unix系系统也大同小异，只需要修改以上命令为系统常用的包管理器即可。
-> 
-> 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。Android Termux需要修改`/usr/bin`文件夹为`/data/data/com.termux/files/usr/bin`。
-> 即：`_ES_INSTALL_ESFSHELL_LOC="/data/data/com.termux/files/usr/bin" sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"`
+> - 以上命令将一键安装Bash和curl并下载本仓库的esfshell.sh文件至`/usr/bin`，最后赋予执行权限。
+> - 其他Unix系系统也大同小异，只需要修改以上命令为系统常用的包管理器即可。
+> - 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。可提前定义变量`_ES_SKIP`为`true`来跳过Root检查。
+> - Android Termux需要修改`/usr/bin`文件夹为`/data/data/com.termux/files/usr/bin`。即：
+> ```Shell
+> _ES_INSTALL_ESFSHELL_LOC="/data/data/com.termux/files/usr/bin" _ES_SKIP=true sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
+> ```
 
 ## 如何使用？
 ```

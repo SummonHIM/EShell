@@ -1,3 +1,4 @@
+#!/bin/sh
 [ -z $_ES_INSTALL_URL ] && _ES_INSTALL_URL="https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master"
 [ -z $_ES_INSTALL_ESFSHELL ] && _ES_INSTALL_ESFSHELL="esfshell"
 [ -z $_ES_INSTALL_ESFSHELL_LOC ] && _ES_INSTALL_ESFSHELL_LOC="/usr/bin"
@@ -22,9 +23,11 @@ _exists() {
     return $ret
 }
 
-if [[ $(id -u) != 0 ]]; then
-    echo Please run this script as root.
-    exit 1
+if [ -z $_ES_SKIP ]; then
+    if [[ $(id -u) != 0 ]]; then
+        echo Please run this script as root.
+        exit 1
+    fi
 fi
 
 _get=""
