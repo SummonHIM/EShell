@@ -56,8 +56,8 @@ if [ -d "$_ES_INSTALL_SYSTEMD_LOC" ]; then
     fi
 elif [ -d "$_ES_INSTALL_INITD_LOC" ]; then
     echo "Downloading init.d service..."
-    echo "Downloading $_ES_INSTALL_URL/sample/linux-systemd/$_ES_INSTALL_INITD into $_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD..."
-    if ! $_get "$_ES_INSTALL_URL/sample/linux-systemd/$_ES_INSTALL_INITD" -o "$_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD"; then
+    echo "Downloading $_ES_INSTALL_URL/sample/openwrt-initd/$_ES_INSTALL_INITD into $_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD..."
+    if ! $_get "$_ES_INSTALL_URL/sample/openwrt-initd/$_ES_INSTALL_INITD" -o "$_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD"; then
         echo "Download error."
     fi
 else
