@@ -1,27 +1,28 @@
 #!/bin/bash
 # EsurfingShell by SummonHIM. URL: https://github.com/SummonHIM/EsurfingShell
 # Original author: @Otm-Z. Create on 2022/03/22. URL: https://github.com/Z446C/ESC-Z
+# shellcheck disable=SC2317
 #
 
 # 变量定义
-[ -z $_ES_HOMEPATH ] && _ES_HOMEPATH="$HOME/.config/esfshell"
-[ -z $_ES_DAEMON_SLEEPTIME ] && _ES_DAEMON_SLEEPTIME="300s"
-[ -z $_ES_LOG_ENABLE ] && _ES_LOG_ENABLE=false
-[ -z $_ES_LOG_PATH ] && _ES_LOG_PATH="$_ES_HOMEPATH/esfshell.log"
-[ -z $_ES_LOG_MAXSIZE ] && _ES_LOG_MAXSIZE=256
-[ -z $_ES_LOG_TAILLINE ] && _ES_LOG_TAILLINE=3000
-[ -z $_ES_LOG_TIMESTAMP ] && _ES_LOG_TIMESTAMP="+%Y-%m-%d %H:%M:%S"
-[ -z $_ES_GLOBAL_ISWIFI ] && _ES_GLOBAL_ISWIFI="4060"
-[ -z $_ES_GLOBAL_SECRET ] && _ES_GLOBAL_SECRET="Eshore!@#"
-[ -z $_ES_GLOBAL_VERSION ] && _ES_GLOBAL_VERSION="214"
-[ -z $_ES_GLOBAL_USERAGENT ] && _ES_GLOBAL_USERAGENT="User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
-[ -z $_ES_GLOBAL_ENET_URL_QUERYSCHOOL ] && _ES_GLOBAL_ENET_URL_QUERYSCHOOL="/client/queryschool"
-[ -z $_ES_GLOBAL_ENET_URL_AD ] && _ES_GLOBAL_ENET_URL_AD="/advertisement.do"
-[ -z $_ES_GLOBAL_ENET_URL_VCHALLENGE ] && _ES_GLOBAL_ENET_URL_VCHALLENGE="/client/vchallenge"
-[ -z $_ES_GLOBAL_ENET_URL_LOGIN ] && _ES_GLOBAL_ENET_URL_LOGIN="/client/login"
-[ -z $_ES_GLOBAL_ENET_URL_LOGOUT ] && _ES_GLOBAL_ENET_URL_LOGOUT="/client/logout"
-[ -z $_ES_NC_URL ] && _ES_NC_URL="http://connect.rom.miui.com/generate_204"
-[ -z $_ES_REDIR_URL ] && _ES_REDIR_URL="enet.10000.gd.cn:10001"
+[ -z "$_ES_HOMEPATH" ] && _ES_HOMEPATH="$HOME/.config/esfshell"
+[ -z "$_ES_DAEMON_SLEEPTIME" ] && _ES_DAEMON_SLEEPTIME="300s"
+[ -z "$_ES_LOG_ENABLE" ] && _ES_LOG_ENABLE=false
+[ -z "$_ES_LOG_PATH" ] && _ES_LOG_PATH="$_ES_HOMEPATH/esfshell.log"
+[ -z "$_ES_LOG_MAXSIZE" ] && _ES_LOG_MAXSIZE=256
+[ -z "$_ES_LOG_TAILLINE" ] && _ES_LOG_TAILLINE=3000
+[ -z "$_ES_LOG_TIMESTAMP" ] && _ES_LOG_TIMESTAMP="+%Y-%m-%d %H:%M:%S"
+[ -z "$_ES_GLOBAL_ISWIFI" ] && _ES_GLOBAL_ISWIFI="4060"
+[ -z "$_ES_GLOBAL_SECRET" ] && _ES_GLOBAL_SECRET="Eshore!@#"
+[ -z "$_ES_GLOBAL_VERSION" ] && _ES_GLOBAL_VERSION="214"
+[ -z "$_ES_GLOBAL_USERAGENT" ] && _ES_GLOBAL_USERAGENT="User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
+[ -z "$_ES_GLOBAL_ENET_URL_QUERYSCHOOL" ] && _ES_GLOBAL_ENET_URL_QUERYSCHOOL="/client/queryschool"
+[ -z "$_ES_GLOBAL_ENET_URL_AD" ] && _ES_GLOBAL_ENET_URL_AD="/advertisement.do"
+[ -z "$_ES_GLOBAL_ENET_URL_VCHALLENGE" ] && _ES_GLOBAL_ENET_URL_VCHALLENGE="/client/vchallenge"
+[ -z "$_ES_GLOBAL_ENET_URL_LOGIN" ] && _ES_GLOBAL_ENET_URL_LOGIN="/client/login"
+[ -z "$_ES_GLOBAL_ENET_URL_LOGOUT" ] && _ES_GLOBAL_ENET_URL_LOGOUT="/client/logout"
+[ -z "$_ES_NC_URL" ] && _ES_NC_URL="http://connect.rom.miui.com/generate_204"
+[ -z "$_ES_REDIR_URL" ] && _ES_REDIR_URL="enet.10000.gd.cn:10001"
 
 _ES_EXIT_CODE=0
 
@@ -85,11 +86,11 @@ loadLang() {
         help() {
             echo "用法：${0##*/} <操作> [选项] [...]"
             echo "操作："
-            printf "   ${0##*/} {-L --login}\t\t登陆到校园网\n"
-            printf "   ${0##*/} {-O --logout}\t\t注销校园网\n"
-            printf "   ${0##*/} {-D --daemon}\t\t监控模式\n"
-            printf "   ${0##*/} {-C --custom} <函数名>\t调用自定义函数\n"
-            printf "   ${0##*/} {-h --help}\t\t\t显示本帮助\n"
+            printf "   %s {-L --login}\t\t登陆到校园网\n" "${0##*/}"
+            printf "   %s {-O --logout}\t\t注销校园网\n" "${0##*/}"
+            printf "   %s {-D --daemon}\t\t监控模式\n" "${0##*/}"
+            printf "   %s {-C --custom} <函数名>\t调用自定义函数\n" "${0##*/}"
+            printf "   %s {-h --help}\t\t\t显示本帮助\n" "${0##*/}"
             echo "选项："
             printf "   -a, --account <账号>\t\t账号\n"
             printf "   -p, --password <密码>\t密码\n"
@@ -156,11 +157,11 @@ loadLang() {
         help() {
             echo "Usage：${0##*/} <Operation> [Options] [...]"
             echo "Operation:"
-            printf "   ${0##*/} {-L --login}\t\tLogin into esurfing network\n"
-            printf "   ${0##*/} {-O --logout}\t\tLogout esurfing network\n"
-            printf "   ${0##*/} {-D --daemon}\t\tDaemon mode\n"
-            printf "   ${0##*/} {-C --custom} <Function>\tCall custom function\n"
-            printf "   ${0##*/} {-h --help}\t\t\tShow this help\n"
+            printf "   %s {-L --login}\t\tLogin into esurfing network\n" "${0##*/}"
+            printf "   %s {-O --logout}\t\tLogout esurfing network\n" "${0##*/}"
+            printf "   %s {-D --daemon}\t\tDaemon mode\n" "${0##*/}"
+            printf "   %s {-C --custom} <Function>\tCall custom function\n" "${0##*/}"
+            printf "   %s {-h --help}\t\t\tShow this help\n" "${0##*/}"
             echo "Options:"
             printf "   -a, --account <Account>\tAccount\n"
             printf "   -p, --password <Password>\tPassword\n"
@@ -176,9 +177,9 @@ loadLang() {
 # Params: <Log type> <Log message>
 # Return: YYYY-MM-DD [Log type]: Log message
 printl() {
-    printf "$(date "$_ES_LOG_TIMESTAMP") [$1]: $2\n"
-    if [ $_ES_LOG_ENABLE == true ]; then
-        printf "$(date "$_ES_LOG_TIMESTAMP") [$1]: $2\n" >>$_ES_LOG_PATH
+    printf "%s [%s]: %s\n" "$(date "$_ES_LOG_TIMESTAMP")" "$1" "$2"
+    if [ "$_ES_LOG_ENABLE" == true ]; then
+        printf "%s [%s]: %s\n" "$(date "$_ES_LOG_TIMESTAMP")" "$1" "$2" >>"$_ES_LOG_PATH"
     fi
 }
 
@@ -188,14 +189,15 @@ createLog() {
         _ES_LOG_PATH="$_ES_HOMEPATH/esfshell.log"
     fi
     if [ -f "$_ES_LOG_PATH" ]; then
-        local size=$(ls -l $_ES_LOG_PATH | awk '{ print $5 }')
+        local size
+        size=$(find "$_ES_LOG_PATH" | awk '{ print $5 }')
         local maxsize=$((_ES_LOG_MAXSIZE * 1024))
-        if [ $size -ge $maxsize ]; then
+        if [ "$size" -ge $maxsize ]; then
             printl Info "$_ES_LANG_LOG_TOOLARGE"
             #只保留取后$_ES_LOG_TAILLINE行内容
-            tail -n $_ES_LOG_TAILLINE $_ES_LOG_PATH >$_ES_LOG_PATH.tmp
-            rm -f $_ES_LOG_PATH
-            mv $_ES_LOG_PATH.tmp $_ES_LOG_PATH
+            tail -n "$_ES_LOG_TAILLINE" "$_ES_LOG_PATH" >"$_ES_LOG_PATH.tmp"
+            rm -f "$_ES_LOG_PATH"
+            mv "$_ES_LOG_PATH.tmp" "$_ES_LOG_PATH"
         else
             if [[ $_ES_VERBOSE == true ]]; then
                 printl Info "$_ES_LANG_LOG_SIZE $((size / 1024))MiB/$((maxsize / 1024))MiB"
@@ -208,7 +210,7 @@ createLog() {
 # Params: <Origin data> <Json key>
 # Return: <Json value>
 getJson() {
-    echo $1 | awk -F $2 '{print $2}' | awk -F '"' '{print $3}'
+    echo "$1" | awk -F "$2" '{print $2}' | awk -F '"' '{print $3}'
 }
 
 # Post请求 (postReq url data cookie)
@@ -217,7 +219,7 @@ getJson() {
 postReq() {
     local contentType="Content-Type: application/json"
     local accept="Accept: */*"
-    echo $(curl $1 -H "$_ES_GLOBAL_USERAGENT" -H "$contentType" -H "$accept" -d "$2" --cookie "$3" -s --interface $_ES_GLOBAL_DEVICE)
+    curl "$1" -H "$_ES_GLOBAL_USERAGENT" -H "$contentType" -H "$accept" -d "$2" --cookie "$3" -s --interface "$_ES_GLOBAL_DEVICE"
 }
 
 # 获取用户IP
@@ -227,26 +229,27 @@ getIP() {
     # 2、从重定向网页中获取
     # "http://enet.10000.gd.cn:10001/?wlanuserip=100.2.49.240&wlanacip=119.146.175.80"
     # "http://enet.10000.gd.cn:10001/qs/main.jsp?wlanacip=119.146.175.80&wlanuserip=100.2.50.69"
-    local tmp1=$(echo -n $1 | cut -d '?' -f2 | cut -d '&' -f1)
-    local tmp2=$(echo -n $1 | cut -d '?' -f2 | cut -d '&' -f2)
+    local tmp1 tmp2 tClientIp tNasIp
+    tmp1=$(echo -n "$1" | cut -d '?' -f2 | cut -d '&' -f1)
+    tmp2=$(echo -n "$1" | cut -d '?' -f2 | cut -d '&' -f2)
 
-    local tClientIp=$(echo -n $tmp1 | grep "wlanuserip")
+    tClientIp=$(echo -n "$tmp1" | grep "wlanuserip")
 
-    local tNasIp=$(echo -n $tmp2 | grep "wlanacip")
+    tNasIp=$(echo -n "$tmp2" | grep "wlanacip")
 
     if [[ "$2" == "clientip" ]]; then
         if [[ "$tClientIp" == "" ]]; then
-            echo -n $tmp2 | cut -d '=' -f2 | tr -d '\r' | tr -d '\n'
+            echo -n "$tmp2" | cut -d '=' -f2 | tr -d '\r' | tr -d '\n'
         else
-            echo -n $tmp1 | cut -d '=' -f2 | tr -d '\r' | tr -d '\n'
+            echo -n "$tmp1" | cut -d '=' -f2 | tr -d '\r' | tr -d '\n'
         fi
     fi
 
     if [[ "$2" == "nasip" ]]; then
         if [[ "$tNasIp" == "" ]]; then
-            echo -n $tmp1 | cut -d '=' -f2 | tr -d '\r' | tr -d '\n'
+            echo -n "$tmp1" | cut -d '=' -f2 | tr -d '\r' | tr -d '\n'
         else
-            echo -n $tmp2 | cut -d '=' -f2 | tr -d '\r' | tr -d '\n'
+            echo -n "$tmp2" | cut -d '=' -f2 | tr -d '\r' | tr -d '\n'
         fi
     fi
 }
@@ -254,21 +257,21 @@ getIP() {
 # 获取第一活跃端口
 # Return: Ether name
 getActivateEther() {
-    echo $(ip addr | grep "state UP" | awk '{print $2}' | cut -d: -f1 | head -1)
+    ip addr | grep "state UP" | awk '{print $2}' | cut -d: -f1 | head -1
 }
 
 # 获取MAC地址
 # Params: <IP>
 # Return: MAC
 getMAC() {
-    echo $(ip addr | grep -C3 $1 | awk '/ether/ { print $2 }' | head -1)
+    ip addr | grep -C3 "$1" | awk '/ether/ { print $2 }' | head -1
 }
 
 # 获取本地IP地址
 # Params: <Ether>
 # Return: Ether's IP
 getLocalIP() {
-    echo $(ip addr show dev $1 | grep "inet " | awk '{print $2}' | cut -d/ -f1 | head -1)
+    ip addr show dev "$1 "| grep "inet " | awk '{print $2}' | cut -d/ -f1 | head -1
 }
 
 # 网站访问状态
@@ -277,10 +280,10 @@ getLocalIP() {
 getUrlStatus() {
     if [[ "$2" == "location" ]]; then
         #获取重定向地址
-        echo $(curl $1 -H "$_ES_GLOBAL_USERAGENT" -I -G -s --interface $_ES_GLOBAL_DEVICE | grep "Location" | awk '{print $2}' | tr -d '\r' | tr -d '\n')
+        curl "$1" -H "$_ES_GLOBAL_USERAGENT" -I -G -s --interface "$_ES_GLOBAL_DEVICE" | grep "Location" | awk '{print $2}' | tr -d '\r' | tr -d '\n'
     elif [[ "$2" == "code" ]]; then
         #获取状态码
-        echo $(curl $1 -H "$_ES_GLOBAL_USERAGENT" -I -G -s --interface $_ES_GLOBAL_DEVICE | grep "HTTP" | awk '{print $2}' | tr -d '\r' | tr -d '\n')
+        curl "$1" -H "$_ES_GLOBAL_USERAGENT" -I -G -s --interface "$_ES_GLOBAL_DEVICE" | grep "HTTP" | awk '{print $2}' | tr -d '\r' | tr -d '\n'
     fi
 }
 
@@ -288,7 +291,7 @@ getUrlStatus() {
 # Params: <Url>
 # Retrun: 302=false, other=true
 networkCheck() {
-    if [[ $(getUrlStatus $1 code) == 302 ]]; then
+    if [[ $(getUrlStatus "$1" code) == 302 ]]; then
         false
     else
         true
@@ -299,48 +302,51 @@ networkCheck() {
 # Params: <Url>
 # Return: host
 getEnetHost() {
-    echo $1 | cut -d '/' -f3
+    echo "$1" | cut -d '/' -f3
 }
 
 # 获取学校ID
 # Params: <Client IP> <Nas IP> <MAC>
 # Return: {"schoolid": "xxx","domain": "xxx","rescode": "xxx","resinfo": "xxx"}
 getSchoolId() {
+    local timeStamp md5 data response
     local cookie=""
-    local timeStamp=$(date +%s)
-    local md5=$(echo -n "$1$2$3$timeStamp$_ES_GLOBAL_SECRET" | md5sum | cut -d ' ' -f1 | tr '[a-z]' '[A-Z]')
-    local data="{\"clientip\":\"$1\",\"nasip\":\"$2\",\"mac\":\"$3\",\"timestamp\":$timeStamp,\"authenticator\":\"$md5\"}"
-    local response=$(postReq $_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_QUERYSCHOOL $data $cookie)
-    echo $(getJson $response schoolid)
+    timeStamp=$(date +%s)
+    md5=$(echo -n "$1$2$3$timeStamp$_ES_GLOBAL_SECRET" | md5sum | cut -d ' ' -f1 | tr 'a-z[]' 'A-Z[]')
+    data="{\"clientip\":\"$1\",\"nasip\":\"$2\",\"mac\":\"$3\",\"timestamp\":$timeStamp,\"authenticator\":\"$md5\"}"
+    response=$(postReq "$_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_QUERYSCHOOL" "$data" "$cookie")
+    getJson "$response" schoolid
 }
 
 # 获取Cookie
 # Params: <School ID>
 # Return: Cookies
 getCookie() {
-    echo -n $(curl "$_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_AD" -H "$_ES_GLOBAL_USERAGENT" -G -d "$1" -s -i --interface $_ES_GLOBAL_DEVICE | grep Set-Cookie | awk '{print $2,$3,$4}')
+    curl "$_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_AD" -H "$_ES_GLOBAL_USERAGENT" -G -d "$1" -s -i --interface "$_ES_GLOBAL_DEVICE" | grep Set-Cookie | awk '{print $2,$3,$4}'
 }
 
 #获取验证码，响应{"challenge": "MR71","resinfo": "success","rescode": "0"}
 # Params: <User Name> <Client IP> <Nas IP> <MAC> <Cookie>
 # Return: Challenge
 getVerifyCode() {
-    local timeStamp=$(date +%s)
-    local md5=$(echo -n "$_ES_GLOBAL_VERSION$2$3$4$timeStamp$_ES_GLOBAL_SECRET" | md5sum | cut -d ' ' -f1 | tr '[a-z]' '[A-Z]')
-    local data="{\"version\":\"$_ES_GLOBAL_VERSION\",\"username\":\"$1\",\"clientip\":\"$2\",\"nasip\":\"$3\",\"mac\":\"$4\",\"timestamp\":\"$timeStamp\",\"authenticator\":\"$md5\"}"
-    local response=$(postReq $_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_VCHALLENGE $data $5)
-    echo $(getJson $response challenge)
+    local timeStamp md5 response data
+    timeStamp=$(date +%s)
+    md5=$(echo -n "$_ES_GLOBAL_VERSION$2$3$4$timeStamp$_ES_GLOBAL_SECRET" | md5sum | cut -d ' ' -f1 | tr 'a-z[]' 'A-Z[]')
+    data="{\"version\":\"$_ES_GLOBAL_VERSION\",\"username\":\"$1\",\"clientip\":\"$2\",\"nasip\":\"$3\",\"mac\":\"$4\",\"timestamp\":\"$timeStamp\",\"authenticator\":\"$md5\"}"
+    response=$(postReq "$_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_VCHALLENGE" "$data" "$5")
+    getJson "$response" challenge
 }
 
 # 登录外网
 # Params: <User Name> <Password> <Client IP> <Nas IP> <Mac> <Cookie> <Verify Code>
 # Return: {"resinfo":"login success","rescode":"0"}
 loginTask() {
-    local timeStamp=$(date +%s)
-    local md5=$(echo -n "$3$4$5$timeStamp$7$_ES_GLOBAL_SECRET" | md5sum | cut -d ' ' -f1 | tr '[a-z]' '[A-Z]')
-    local data="{\"username\":\"$1\",\"password\":\"$2\",\"clientip\":\"$3\",\"nasip\":\"$4\",\"mac\":\"$5\",\"iswifi\":\"$_ES_GLOBAL_ISWIFI\",\"timestamp\":\"$timeStamp\",\"authenticator\":\"$md5\"}"
-    local response=$(postReq $_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_LOGIN $data $6)
-    local rescode=$(echo $response | awk -F rescode '{print $2}' | awk -F '"' '{print $3}')
+    local timeStamp md5 response data rescode
+    timeStamp=$(date +%s)
+    md5=$(echo -n "$3$4$5$timeStamp$7$_ES_GLOBAL_SECRET" | md5sum | cut -d ' ' -f1 | tr 'a-z[]' 'A-Z[]')
+    data="{\"username\":\"$1\",\"password\":\"$2\",\"clientip\":\"$3\",\"nasip\":\"$4\",\"mac\":\"$5\",\"iswifi\":\"$_ES_GLOBAL_ISWIFI\",\"timestamp\":\"$timeStamp\",\"authenticator\":\"$md5\"}"
+    response=$(postReq "$_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_LOGIN" "$data" "$6")
+    rescode=$(echo "$response" | awk -F rescode '{print $2}' | awk -F '"' '{print $3}')
     _ES_RESULT_LOGING=$response
     if [[ "$rescode" == 0 ]]; then
         return
@@ -354,11 +360,12 @@ loginTask() {
 # Params: <Client IP> <Nas IP> <Mac> <Cookie>
 # Return: {"rescode":"xxx","resinfo":"xxx"}
 logoutTask() {
-    local timeStamp=$(date +%s)
-    local md5=$(echo -n "$1$2$3$timeStamp$_ES_GLOBAL_SECRET" | md5sum | cut -d ' ' -f1 | tr '[a-z]' '[A-Z]')
-    local data="{\"clientip\":\"$1\",\"nasip\":\"$2\",\"mac\":\"$3\",\"secret\":\"$_ES_GLOBAL_SECRET\",\"timestamp\":$timeStamp,\"authenticator\":\"$md5\"}"
-    local response=$(postReq $_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_LOGOUT $data $4)
-    local rescode=$(echo $response | awk -F rescode '{print $2}' | awk -F '"' '{print $3}')
+    local timeStamp md5 response data rescode
+    timeStamp=$(date +%s)
+    md5=$(echo -n "$1$2$3$timeStamp$_ES_GLOBAL_SECRET" | md5sum | cut -d ' ' -f1 | tr 'a-z[]' 'A-Z[]')
+    data="{\"clientip\":\"$1\",\"nasip\":\"$2\",\"mac\":\"$3\",\"secret\":\"$_ES_GLOBAL_SECRET\",\"timestamp\":$timeStamp,\"authenticator\":\"$md5\"}"
+    response=$(postReq "$_ES_GLOBAL_ENET_URL$_ES_GLOBAL_ENET_URL_LOGOUT" "$data" "$4")
+    rescode=$(echo "$response" | awk -F rescode '{print $2}' | awk -F '"' '{print $3}')
     _ES_RESULT_LOGOUT=$response
     if [[ "$rescode" == 0 ]]; then
         return
@@ -391,7 +398,7 @@ logicActivateEther() {
             fi
         else
             printl Warning "$_ES_LANG_ACTIVATE_ETHER_FAILED"
-            read -sp "$_ES_LANG_ACTIVATE_ETHER_MANUAL " _ES_GLOBAL_DEVICE
+            read -rsp "$_ES_LANG_ACTIVATE_ETHER_MANUAL " _ES_GLOBAL_DEVICE
             exit 1
         fi
     fi
@@ -401,10 +408,10 @@ loginEnet() {
     # 获取用户IP和服务器IP
     printl Info "$_ES_LANG_LOGIN_GET_USERDATA"
 
-    _ES_GLOBAL_ENET_URL="http://$(getEnetHost $_ES_NC_URLLOCATION)"
+    _ES_GLOBAL_ENET_URL="http://$(getEnetHost "$_ES_NC_URLLOCATION")"
 
-    _ES_CONFIG_CLIENTIP=$(getIP $_ES_NC_URLLOCATION clientip)
-    if [ $_ES_CONFIG_CLIENTIP ]; then
+    _ES_CONFIG_CLIENTIP=$(getIP "$_ES_NC_URLLOCATION" clientip)
+    if [ "$_ES_CONFIG_CLIENTIP" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_CLIENTIP $_ES_CONFIG_CLIENTIP"
         fi
@@ -412,8 +419,8 @@ loginEnet() {
         printl Error "$_ES_LANG_LOGIN_GET_CLIENTIP_FAILED"
         _ES_EXIT_CODE=1
     fi
-    _ES_CONFIG_NASIP=$(getIP $_ES_NC_URLLOCATION nasip)
-    if [ $_ES_CONFIG_NASIP ]; then
+    _ES_CONFIG_NASIP=$(getIP "$_ES_NC_URLLOCATION" nasip)
+    if [ "$_ES_CONFIG_NASIP" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_NASIP $_ES_CONFIG_NASIP"
         fi
@@ -423,16 +430,16 @@ loginEnet() {
     fi
 
     # 获取MAC地址
-    if [ $_ES_CONFIG_CLIENTIP ]; then
-        _ES_CONFIG_MAC=$(getMAC $_ES_CONFIG_CLIENTIP)
+    if [ "$_ES_CONFIG_CLIENTIP" ]; then
+        _ES_CONFIG_MAC=$(getMAC "$_ES_CONFIG_CLIENTIP")
     else
         if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_MAC_RETRY"
         fi
         _ES_CONFIG_CLIENTIP=$(getLocalIP "$_ES_GLOBAL_DEVICE")
-        _ES_CONFIG_MAC=$(getMAC $_ES_CONFIG_CLIENTIP)
+        _ES_CONFIG_MAC=$(getMAC "$_ES_CONFIG_CLIENTIP")
     fi
-    if [ $_ES_CONFIG_MAC ]; then
+    if [ "$_ES_CONFIG_MAC" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_MAC $_ES_CONFIG_MAC"
         fi
@@ -443,9 +450,9 @@ loginEnet() {
 
     # 获取学校ID
     if [[ "$_ES_CONFIG_SCHOOLID" == "" ]]; then
-        _ES_CONFIG_SCHOOLID=$(getSchoolId $_ES_CONFIG_CLIENTIP $_ES_CONFIG_NASIP $_ES_CONFIG_MAC)
+        _ES_CONFIG_SCHOOLID=$(getSchoolId "$_ES_CONFIG_CLIENTIP" "$_ES_CONFIG_NASIP" "$_ES_CONFIG_MAC")
     fi
-    if [ $_ES_CONFIG_SCHOOLID ]; then
+    if [ "$_ES_CONFIG_SCHOOLID" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_SCHOOLID $_ES_CONFIG_SCHOOLID"
         fi
@@ -455,8 +462,8 @@ loginEnet() {
     fi
 
     # 获取Cookie
-    if [ $_ES_CONFIG_SCHOOLID ]; then
-        _ES_CONFIG_COOKIE=$(getCookie $_ES_CONFIG_SCHOOLID)
+    if [ "$_ES_CONFIG_SCHOOLID" ]; then
+        _ES_CONFIG_COOKIE=$(getCookie "$_ES_CONFIG_SCHOOLID")
     fi
     if [ "$_ES_CONFIG_COOKIE" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
@@ -468,8 +475,8 @@ loginEnet() {
     fi
 
     # 获取验证码
-    _ES_CONFIG_VERIFYCODE=$(getVerifyCode $_ES_ACC_USERNAME $_ES_CONFIG_CLIENTIP $_ES_CONFIG_NASIP $_ES_CONFIG_MAC $_ES_CONFIG_COOKIE)
-    if [ $_ES_CONFIG_VERIFYCODE ]; then
+    _ES_CONFIG_VERIFYCODE=$(getVerifyCode "$_ES_ACC_USERNAME" "$_ES_CONFIG_CLIENTIP" "$_ES_CONFIG_NASIP" "$_ES_CONFIG_MAC" "$_ES_CONFIG_COOKIE")
+    if [ "$_ES_CONFIG_VERIFYCODE" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
             printl Info "$_ES_LANG_LOGIN_GET_VERIFYCODE $_ES_CONFIG_VERIFYCODE"
         fi
@@ -479,15 +486,17 @@ loginEnet() {
     fi
 
     # 登录
-    if [ $_ES_CONFIG_VERIFYCODE ]; then
+    if [ "$_ES_CONFIG_VERIFYCODE" ]; then
         printl Info "$_ES_LANG_LOGIN_ING"
-        if loginTask $_ES_ACC_USERNAME $_ES_ACC_PASSWD $_ES_CONFIG_CLIENTIP $_ES_CONFIG_NASIP $_ES_CONFIG_MAC "$_ES_CONFIG_COOKIE" $_ES_CONFIG_VERIFYCODE; then
+        if loginTask "$_ES_ACC_USERNAME" "$_ES_ACC_PASSWD" "$_ES_CONFIG_CLIENTIP" "$_ES_CONFIG_NASIP" "$_ES_CONFIG_MAC" "$_ES_CONFIG_COOKIE" "$_ES_CONFIG_VERIFYCODE"; then
             printl Info "$_ES_LANG_LOGIN_SUCCESS"
-            echo "_ES_GLOBAL_ENET_URL=$_ES_GLOBAL_ENET_URL" >$_ES_HOMEPATH/esfshell.run
-            echo "_ES_CONFIG_CLIENTIP=$_ES_CONFIG_CLIENTIP" >>$_ES_HOMEPATH/esfshell.run
-            echo "_ES_CONFIG_NASIP=$_ES_CONFIG_NASIP" >>$_ES_HOMEPATH/esfshell.run
-            echo "_ES_CONFIG_MAC=$_ES_CONFIG_MAC" >>$_ES_HOMEPATH/esfshell.run
-            echo "_ES_CONFIG_COOKIE=\"$_ES_CONFIG_COOKIE\"" >>$_ES_HOMEPATH/esfshell.run
+            {
+                echo "_ES_GLOBAL_ENET_URL=\"$_ES_GLOBAL_ENET_URL\""
+                echo "_ES_CONFIG_CLIENTIP=\"$_ES_CONFIG_CLIENTIP\""
+                echo "_ES_CONFIG_NASIP=\"$_ES_CONFIG_NASIP\""
+                echo "_ES_CONFIG_MAC=\"$_ES_CONFIG_MAC\""
+                echo "_ES_CONFIG_COOKIE=\"$_ES_CONFIG_COOKIE\""
+            }>"$_ES_HOMEPATH/esfshell.run"
         else
             printl Error "$_ES_LANG_LOGIN_FAILED"
         fi
@@ -505,7 +514,7 @@ login() {
     # 网络检测，若可以连接外网则退出
     printl Info "$_ES_LANG_LOGIN_CHECK"
     if [[ $_ES_FORCE != true ]]; then
-        if networkCheck $_ES_NC_URL; then
+        if networkCheck "$_ES_NC_URL"; then
             printl Info "$_ES_LANG_LOGIN_CHECK_SUCCESS"
             return
         fi
@@ -519,8 +528,9 @@ login() {
             _ES_EXIT_CODE=1
         fi
     else
-        local urlCode=$(getUrlStatus $_ES_NC_URL code)
-        _ES_NC_URLLOCATION=$(getUrlStatus $_ES_NC_URL location)
+        local urlCode
+        urlCode=$(getUrlStatus "$_ES_NC_URL" code)
+        _ES_NC_URLLOCATION=$(getUrlStatus "$_ES_NC_URL" location)
         if [[ "$urlCode" == "302" ]]; then
             # 获取重定向地址
             printl Info "$_ES_LANG_LOGIN_CHECK_NEED"
@@ -544,28 +554,28 @@ login() {
 # 注销逻辑
 logout() {
     if [ -e "$_ES_HOMEPATH/esfshell.run" ]; then
-        . $_ES_HOMEPATH/esfshell.run
+        source "$_ES_HOMEPATH/esfshell.run"
     else
         printl Warning "$_ES_LANG_LOGOUT_RUNFILE_LOST_A $_ES_HOMEPATH/esfshell.run $_ES_LANG_LOGOUT_RUNFILE_LOST_B"
     fi
 
     if [[ $_ES_FORCE != true ]]; then
         # 若变量缺失值则尝试获取
-        if [ -z $_ES_CONFIG_CLIENTIP ]; then
+        if [ -z "$_ES_CONFIG_CLIENTIP" ]; then
             printl Warning "$_ES_LANG_LOGOUT_GET_CLIENT_FAILED"
             _ES_CONFIG_CLIENTIP=$(getLocalIP "$_ES_GLOBAL_DEVICE")
         fi
-        if [ -z $_ES_CONFIG_MAC ]; then
+        if [ -z "$_ES_CONFIG_MAC" ]; then
             printl Warning "$_ES_LANG_LOGOUT_GET_MAC_FAILED"
-            _ES_CONFIG_MAC=$(getMAC $_ES_CONFIG_CLIENTIP)
+            _ES_CONFIG_MAC=$(getMAC "$_ES_CONFIG_CLIENTIP")
         fi
-        if [ -z $_ES_CONFIG_NASIP ]; then
+        if [ -z "$_ES_CONFIG_NASIP" ]; then
             printl Warning "$_ES_LANG_LOGOUT_GET_NASIP_FAILED"
-            read -p "$_ES_LANG_LOGOUT_GET_NASIP_MANUAL " _ES_CONFIG_NASIP
+            read -rp "$_ES_LANG_LOGOUT_GET_NASIP_MANUAL " _ES_CONFIG_NASIP
         fi
         if [ -z "$_ES_CONFIG_COOKIE" ]; then
             printl Warning "$_ES_LANG_LOGOUT_GET_COOKIE_FAILED"
-            read -p "$_ES_LANG_LOGOUT_GET_COOKIE_MANUAL " _ES_CONFIG_COOKIE
+            read -rp "$_ES_LANG_LOGOUT_GET_COOKIE_MANUAL " _ES_CONFIG_COOKIE
         fi
     fi
 
@@ -577,10 +587,10 @@ logout() {
     fi
 
     printl Info "$_ES_LANG_LOGOUT_ING"
-    if logoutTask $_ES_CONFIG_CLIENTIP $_ES_CONFIG_NASIP $_ES_CONFIG_MAC "$_ES_CONFIG_COOKIE"; then
+    if logoutTask "$_ES_CONFIG_CLIENTIP" "$_ES_CONFIG_NASIP" "$_ES_CONFIG_MAC" "$_ES_CONFIG_COOKIE"; then
         printl Info "$_ES_LANG_LOGOUT_SUCCESS"
         if [ -e "$_ES_HOMEPATH/esfshell.run" ]; then
-            rm $_ES_HOMEPATH/esfshell.run
+            rm "$_ES_HOMEPATH/esfshell.run"
         fi
     else
         printl Error "$_ES_LANG_LOGOUT_FAILED"
@@ -597,7 +607,7 @@ daemon() {
         logicActivateEther
         login
         printl Info "$_ES_LANG_DAEMON_WAIT_A $_ES_DAEMON_SLEEPTIME $_ES_LANG_DAEMON_WAIT_B"
-        sleep $_ES_DAEMON_SLEEPTIME
+        sleep "$_ES_DAEMON_SLEEPTIME"
     done
 }
 
@@ -661,34 +671,34 @@ done
 
 # 加载初始化文件
 if [ -e "$_ES_HOMEPATH/esfshellrc.sh" ]; then
-    . $_ES_HOMEPATH/esfshellrc.sh
+    source "$_ES_HOMEPATH/esfshellrc.sh"
 fi
 
 # 加载语言
 loadLang
 
 # Home目录不存在则创建
-if [ ! -d $_ES_HOMEPATH ]; then
+if [ ! -d "$_ES_HOMEPATH" ]; then
     if [[ $_ES_VERBOSE == true ]]; then
         printl Warning "$_ES_LANG_MAIN_HOMEPATH_MKDIR_A $_ES_HOMEPATH $_ES_LANG_MAIN_HOMEPATH_MKDIR_B"
     fi
-    mkdir -p $_ES_HOMEPATH
+    mkdir -p "$_ES_HOMEPATH"
 fi
 
-if [ -v $funcCall ]; then
+if [ -v "$funcCall" ]; then
     help
 else
-    if [ $_ES_LOG_ENABLE == true ]; then
+    if [ "$_ES_LOG_ENABLE" == true ]; then
         createLog
     fi
     # 检测用户名和密码
-    if [ -z $_ES_ACC_USERNAME ]; then
+    if [ -z "$_ES_ACC_USERNAME" ]; then
         printl Warning "$_ES_LANG_MAIN_USERNAME_EMPTY"
-        read -p "$_ES_LANG_MAIN_USERNAME_MANUAL " _ES_ACC_USERNAME
+        read -rp "$_ES_LANG_MAIN_USERNAME_MANUAL " _ES_ACC_USERNAME
     fi
-    if [ -z $_ES_ACC_PASSWD ]; then
+    if [ -z "$_ES_ACC_PASSWD" ]; then
         printl Warning "$_ES_LANG_MAIN_PASSWD_EMPTY"
-        read -sp "$_ES_LANG_MAIN_PASSWD_MANUAL " _ES_ACC_PASSWD
+        read -rsp "$_ES_LANG_MAIN_PASSWD_MANUAL " _ES_ACC_PASSWD
         echo ""
     fi
 

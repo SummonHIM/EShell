@@ -1,0 +1,6 @@
+
+config esfshell
+    option enable '0'
+    option username ''
+    option password ''
+    option interface ''

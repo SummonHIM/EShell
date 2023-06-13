@@ -4,6 +4,7 @@
 ## 脚本说明
 - 使用Bash Shell轻量脚本，兼容大部分系统。
 - 支持Linux、MacOS（未测试）、Windows以及其他支持Shell的系统（如安卓的Termux）等。
+- 支持 OpenWrt UCI。
 - 一键登录/注销。
 - 日志输出。
 
@@ -17,6 +18,7 @@
 - 多语言系统，为不支持中文的环境（如TTY）提供支持。
 - 使用-v开关来控制日志输出的详细度。
 - 因本校没有Portal认证页。所以已将相关代码移除。
+- OpenWrt UCI 支持。
 
 ## 运行环境
 ### 终端
@@ -39,9 +41,7 @@ sudo apt update && sudo apt install bash curl && sudo sh -c "$(curl -fsSL https:
 ```
 
 ### OpenWrt
-```Shell
-opkg update && opkg install bash curl && sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
-```
+敬请期待
 
 > - 以上命令将一键安装Bash和curl并下载本仓库的esfshell.sh文件至`/usr/bin`，最后赋予执行权限。
 > - 其他Unix系系统也大同小异，只需要修改以上命令为系统常用的包管理器即可。

@@ -1,12 +1,10 @@
 #!/bin/sh
-[ -z $_ES_INSTALL_URL ] && _ES_INSTALL_URL="https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master"
-[ -z $_ES_INSTALL_ESFSHELL ] && _ES_INSTALL_ESFSHELL="esfshell"
-[ -z $_ES_INSTALL_ESFSHELL_LOC ] && _ES_INSTALL_ESFSHELL_LOC="/usr/bin"
-[ -z $_ES_INSTALL_SYSTEMD ] && _ES_INSTALL_SYSTEMD="esfshell.service"
-[ -z $_ES_INSTALL_SYSTEMD_AT ] && _ES_INSTALL_SYSTEMD_AT="esfshell@.service"
-[ -z $_ES_INSTALL_SYSTEMD_LOC ] && _ES_INSTALL_SYSTEMD_LOC="/etc/systemd/system"
-[ -z $_ES_INSTALL_INITD ] && _ES_INSTALL_INITD="esfshell"
-[ -z $_ES_INSTALL_INITD_LOC ] && _ES_INSTALL_INITD_LOC="/etc/init.d"
+[ -z "$_ES_INSTALL_URL" ] && _ES_INSTALL_URL="https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master"
+[ -z "$_ES_INSTALL_ESFSHELL" ] && _ES_INSTALL_ESFSHELL="esfshell"
+[ -z "$_ES_INSTALL_ESFSHELL_LOC" ] && _ES_INSTALL_ESFSHELL_LOC="/usr/bin"
+[ -z "$_ES_INSTALL_SYSTEMD" ] && _ES_INSTALL_SYSTEMD="esfshell.service"
+[ -z "$_ES_INSTALL_SYSTEMD_AT" ] && _ES_INSTALL_SYSTEMD_AT="esfshell@.service"
+[ -z "$_ES_INSTALL_SYSTEMD_LOC" ] && _ES_INSTALL_SYSTEMD_LOC="/etc/systemd/system"
 
 _exists() {
     local cmd="$1"
@@ -23,7 +21,7 @@ _exists() {
     return $ret
 }
 
-if [ -z $_ES_SKIP ]; then
+if [ -z "$_ES_SKIP" ]; then
     if [[ $(id -u) != 0 ]]; then
         echo Please run this script as root.
         exit 1
@@ -59,14 +57,6 @@ if [ -d "$_ES_INSTALL_SYSTEMD_LOC" ]; then
     if ! $_get "$_ES_INSTALL_URL/sample/linux-systemd/$_ES_INSTALL_SYSTEMD_AT" -o "$_ES_INSTALL_SYSTEMD_LOC/$_ES_INSTALL_SYSTEMD_AT"; then
         echo "Download error."
     fi
-elif [ -d "$_ES_INSTALL_INITD_LOC" ]; then
-    echo "Downloading init.d service..."
-    echo "Downloading $_ES_INSTALL_URL/sample/openwrt-initd/$_ES_INSTALL_INITD into $_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD..."
-    if ! $_get "$_ES_INSTALL_URL/sample/openwrt-initd/$_ES_INSTALL_INITD" -o "$_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD"; then
-        echo "Download error."
-    else
-        chmod +x "$_ES_INSTALL_INITD_LOC/$_ES_INSTALL_INITD"
-    fi
 else
-    echo "Systemd or init.d not found. Skip service installation."
+    echo "Systemd not found. Skip service installation."
 fi
