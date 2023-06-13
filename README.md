@@ -97,7 +97,7 @@ esfshell -O
 可使用`esfshell@网卡名称`来自定义默认网卡。详细信息可参阅[多网卡范例文件](/sample/linux-systemd/esfshell@.service)源代码。
 
 #### OpenWrt init.d
-[范例文件](/sample/openwrt-initd/esfshell)
+[范例文件](/sample/openwrt-etc/init.d/esfshell)
 
 > 注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
 >
