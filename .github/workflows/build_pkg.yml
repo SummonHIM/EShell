@@ -52,6 +52,7 @@ jobs:
           path: openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/bin/packages/x86_64/base/esfshell_${{ github.ref_name }}-${{ github.run_number }}_all.ipk
 
   upload-release:
+    name: Upload releases
     permissions:
       contents: write
     needs:
@@ -66,9 +67,9 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: EsurfingShell v${{ github.ref }}
-          tag_name: ${{ github.ref }}
+          name: EsurfingShell v${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
           files: |
-            esfshell_${{ github.ref }}-${{ github.run_number }}_all.ipk
+            esfshell_${{ github.ref_name }}-${{ github.run_number }}_all.ipk
