@@ -28,17 +28,17 @@ jobs:
           ./scripts/feeds install -a
           make defconfig
 
-      - name: Prepare openwrt package
+      - name: Download openwrt-esfshell package
         run: |
           mkdir -p openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/package/openwrt-esfshell
           cp -rv build/openwrt/* openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/package/openwrt-esfshell
           cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
           make package/openwrt-esfshell/download V=sc
 
-      - name: Prepare openwrt package
+      - name: Prepare openwrt-esfshell package
         run: make package/openwrt-esfshell/prepare V=sc
-        
-      - name: Compile openwrt package
+
+      - name: Compile openwrt-esfshell package
         run: make package/openwrt-esfshell/compile V=sc
 
       - name: Upload compiled package

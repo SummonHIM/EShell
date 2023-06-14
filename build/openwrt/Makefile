@@ -11,7 +11,7 @@ PKG_RELEASE:=$(if $(value GITHUB_RUN_NUMBER),$(value GITHUB_RUN_NUMBER),1)
 
 PKG_SOURCE:=$(PKG_VERSION).tar.gz
 PKG_SOURCE_GITTYPE:=$(if $(value GITHUB_REF), tags, heads)
-PKG_SOURCE_URL:=https://github.com/SummonHIM/EsurfingShell/archive/$(PKG_SOURCE_GITTYPE)/tags/
+PKG_SOURCE_URL:=https://github.com/SummonHIM/EsurfingShell/archive/refs/$(PKG_SOURCE_GITTYPE)/
 PKG_HASH:=skip
 
 TAR_DIR:=$(BUILD_DIR)/EsurfingShell-$(PKG_VERSION)
