@@ -4,12 +4,6 @@ on:
   push:
     tags:
       - '*'
-  workflow_dispatch:
-    inputs:
-      releaseVersion:
-        description: 'Enter the version number'
-        required: true
-        default: 'v.'
 
 jobs:
   openwrt:
