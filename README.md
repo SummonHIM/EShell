@@ -108,16 +108,18 @@ esfshell -O
 
 > [OpenWrt服务使用教程（英文）](https://openwrt.org/docs/guide-user/base-system/managing_services) | [OpenWrt日志查看教程（英文）](https://openwrt.org/docs/guide-user/base-system/log.essentials)
 
-将范例文件下载至`/etc/init.d`文件夹即可使用。
+一般情况下IPK软件包已经集成服务文件。若不存在则将范例文件下载至`/etc/init.d`文件夹即可使用。
 
 本服务文件已适配[UCI系统](https://openwrt.org/docs/guide-user/base-system/uci)。可使用UCI命令来配置脚本。
 ```
+uci add esfshell esfshell					# 若配置为空，则新建一个新配置
 uci set esfshell.@esfshell[0].enable='1'			# 选项'enable'用于控制是否启用本配置
 uci set esfshell.@esfshell[0].username='用户名'			# 选项'username'用于定义用户名
 uci set esfshell.@esfshell[0].password='密码'			# 选项'password'用于定义密码
 uci set esfshell.@esfshell[0].interface='网络接口'		# 选项'interface'用于定义网络接口
 uci add_list esfshell.@esfshell[0].env='_ES_LANG=zh_CN'		# 列表'env'用于定义自定义变量
-uci add_list esfshell.@esfshell[0].env='_ES_DAEMON_SLEEPTIME=1m'	
+uci add_list esfshell.@esfshell[0].env='_ES_DAEMON_SLEEPTIME=1m'
+uci commit							# 保存正缓存的配置
 ```
 
 ## 初始化文件
