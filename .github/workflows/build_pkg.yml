@@ -21,7 +21,7 @@ jobs:
 
       - name: Download & extract OpenWrt SDK
         run: |
-          aria2c -x=16 https://downloads.openwrt.org/releases/22.03.5/targets/x86/64/openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+          aria2c -x 16 https://downloads.openwrt.org/releases/22.03.5/targets/x86/64/openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
           tar -xvf openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
           cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
           ./scripts/feeds update -a
@@ -62,5 +62,6 @@ jobs:
           name: EsurfingShell v${{ github.ref }}
           tag_name: ${{ github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          draft: true
           files: |
             esfshell_${{ github.ref }}-${{ github.run_number }}_all.ipk
