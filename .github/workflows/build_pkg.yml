@@ -33,23 +33,23 @@ jobs:
           mkdir -p openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/package/openwrt-esfshell
           cp -rv build/openwrt/* openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/package/openwrt-esfshell
           cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
-          make package/openwrt-esfshell/download V=sc
+          make package/openwrt-esfshell/download
 
       - name: Prepare openwrt-esfshell package
         run: |
           cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
-          make package/openwrt-esfshell/prepare V=sc
+          make package/openwrt-esfshell/prepare
 
       - name: Compile openwrt-esfshell package
         run: |
           cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
-          make package/openwrt-esfshell/compile V=sc
+          make package/openwrt-esfshell/compile
 
       - name: Upload compiled package
         uses: actions/upload-artifact@v3
         with:
           name: openwrt-esfshell
-          path: openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/bin/packages/x86_64/base/esfshell_${{ github.ref }}-${{ github.run_number }}_all.ipk
+          path: openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/bin/packages/x86_64/base/esfshell_${{ github.ref_name }}-${{ github.run_number }}_all.ipk
 
   upload-release:
     permissions:
