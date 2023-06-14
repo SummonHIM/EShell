@@ -30,26 +30,33 @@
 - cron(crond): 用于自动执行计划任务，OpenWrt自带cron，其他系统可以测试一下。（可选）
 
 ## 快速安装
-### Arch Linux/Windows MSYS（请注意阅读下方注释）
+### Arch Linux
 ```Shell
 sudo pacman -Su bash curl && sudo sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
 ```
 
-### Ubuntu/Android Termux（请注意阅读下方注释）
+### Ubuntu
 ```Shell
 sudo apt update && sudo apt install bash curl && sudo sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
 ```
 
+### Windows MSYS
+```Shell
+pacman -Su bash curl && _ES_SKIP=true sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
+```
+
+### Android Termux
+```Shell
+apt update && apt install bash curl && _ES_INSTALL_ESFSHELL_LOC="/data/data/com.termux/files/usr/bin" _ES_SKIP=true sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
+```
+
 ### OpenWrt
-敬请期待
+[下载最新 IPK](https://github.com/SummonHIM/EsurfingShell/releases/latest)
 
 > - 以上命令将一键安装Bash和curl并下载本仓库的esfshell.sh文件至`/usr/bin`，最后赋予执行权限。
 > - 其他Unix系系统也大同小异，只需要修改以上命令为系统常用的包管理器即可。
 > - 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。可提前定义变量`_ES_SKIP`为`true`来跳过Root检查。
 > - Android Termux需要修改`/usr/bin`文件夹为`/data/data/com.termux/files/usr/bin`。即：
-> ```Shell
-> _ES_INSTALL_ESFSHELL_LOC="/data/data/com.termux/files/usr/bin" _ES_SKIP=true sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
-> ```
 
 ## 如何使用？
 ```
@@ -99,13 +106,19 @@ esfshell -O
 #### OpenWrt init.d
 [范例文件](/sample/openwrt-etc/init.d/esfshell)
 
-> 注意：需要提前在初始化文件中定义用户名和密码才能正常使用。
->
 > [OpenWrt服务使用教程（英文）](https://openwrt.org/docs/guide-user/base-system/managing_services) | [OpenWrt日志查看教程（英文）](https://openwrt.org/docs/guide-user/base-system/log.essentials)
 
-将范例文件下载至`/etc/init.d`文件夹后，修改文件内的路径即可。
+将范例文件下载至`/etc/init.d`文件夹即可使用。
 
-可在`/etc/esfshell`中新建名为网卡名称的文件夹来自定义默认网卡。若`/etc/esfshell`中没有文件夹则使用`/etc/esfshell`作为主目录。
+本服务文件已适配[UCI系统](https://openwrt.org/docs/guide-user/base-system/uci)。可使用UCI命令来配置脚本。
+```
+uci set esfshell.@esfshell[0].enable='1'			# 选项'enable'用于控制是否启用本配置
+uci set esfshell.@esfshell[0].username='用户名'			# 选项'username'用于定义用户名
+uci set esfshell.@esfshell[0].password='密码'			# 选项'password'用于定义密码
+uci set esfshell.@esfshell[0].interface='网络接口'		# 选项'interface'用于定义网络接口
+uci add_list esfshell.@esfshell[0].env='_ES_LANG=zh_CN'		# 列表'env'用于定义自定义变量
+uci add_list esfshell.@esfshell[0].env='_ES_DAEMON_SLEEPTIME=1m'	
+```
 
 ## 初始化文件
 初始化文件能在不修改脚本的前提下为脚本新增/修改功能、函数以及变量。其定位与Bash中的`.bashrc`一致。
