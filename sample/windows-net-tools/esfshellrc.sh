@@ -15,7 +15,7 @@ getActivateEther() {
 # Params: <IP>
 # Return: MAC
 getMAC() {
-    wmic nicconfig where IPEnabled=True get ipaddress,macaddress | iconv -f gbk -t utf-8 | grep $1 | awk '{print $NF}'
+    wmic nicconfig where IPEnabled=True get ipaddress,macaddress | iconv -f gbk -t utf-8 | grep "$1" | awk '{print $NF}'
 }
 
 # 获取本地IP地址

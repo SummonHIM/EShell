@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: 'Enter the version number'
+        required: true
+        default: 'v.'
+
+jobs:
+  openwrt:
+    name: OpenWrt package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install environment
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential ccache ecj fastjar file g++ gawk \
+          gettext git java-propose-classpath libelf-dev libncurses5-dev \
+          libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
+          python3-distutils python3-setuptools python3-dev rsync subversion \
+          swig time xsltproc zlib1g-dev aria2
+
+      - name: Download & extract OpenWrt SDK
+        run: |
+          aria2c -x=16 https://downloads.openwrt.org/releases/22.03.5/targets/x86/64/openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+          tar -xvf openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+          cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: Prepare openwrt package
+        run: |
+          mkdir -p openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/package/openwrt-esfshell
+          cp -rv build/openwrt/* openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/package/openwrt-esfshell
+          cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
+          make package/openwrt-esfshell/download V=s
+          make package/openwrt-esfshell/prepare V=s
+
+      - name: Compile openwrt package
+        run: make package/openwrt-esfshell/compile V=s
+
+      - name: Upload compiled package
+        uses: actions/upload-artifact@v3
+        with:
+          name: openwrt-esfshell
+          path: openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/bin/packages/x86_64/base/esfshell_${{ github.ref }}-${{ github.run_number }}_all.ipk
+
+  upload-release:
+    permissions:
+      contents: write
+    needs:
+      - openwrt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: openwrt-esfshell
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: EsurfingShell v${{ github.ref }}
+          tag_name: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            esfshell_${{ github.ref }}-${{ github.run_number }}_all.ipk

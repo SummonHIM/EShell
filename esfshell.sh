@@ -685,7 +685,7 @@ if [ ! -d "$_ES_HOMEPATH" ]; then
     mkdir -p "$_ES_HOMEPATH"
 fi
 
-if [ -v "$funcCall" ]; then
+if [ -z "$funcCall" ]; then
     help
 else
     if [ "$_ES_LOG_ENABLE" == true ]; then
