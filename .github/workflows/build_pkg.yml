@@ -33,11 +33,11 @@ jobs:
           mkdir -p openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/package/openwrt-esfshell
           cp -rv build/openwrt/* openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64/package/openwrt-esfshell
           cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
-          make package/openwrt-esfshell/download V=s
-          make package/openwrt-esfshell/prepare V=s
+          make package/openwrt-esfshell/download V=sc
+          make package/openwrt-esfshell/prepare V=sc
 
       - name: Compile openwrt package
-        run: make package/openwrt-esfshell/compile V=s
+        run: make package/openwrt-esfshell/compile V=sc
 
       - name: Upload compiled package
         uses: actions/upload-artifact@v3
