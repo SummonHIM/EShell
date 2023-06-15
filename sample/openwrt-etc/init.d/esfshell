@@ -41,10 +41,10 @@ config_esfshell_stop() {
 
 start_service() {
     config_load esfshell
-    config_foreach config_esfshell_start esfshell
+    config_foreach config_esfshell_start
 }
 
 service_stopped() {
     config_load esfshell
-    config_foreach config_esfshell_stop esfshell
+    config_foreach config_esfshell_stop
 }

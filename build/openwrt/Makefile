@@ -30,7 +30,7 @@ define Package/$(PKG_NAME)
 endef
 
 define Package/$(PKG_NAME)/description
-Esurfing Campus Login Script Based on Bash Shell
+Esurfing Campus Login Script Based on Bash Shell.
 endef
 
 define Package/$(PKG_NAME)/conffiles
