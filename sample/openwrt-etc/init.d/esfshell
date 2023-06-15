@@ -31,7 +31,8 @@ config_esfshell_stop() {
     export _ES_ACC_USERNAME="$username"
     export _ES_ACC_PASSWD="$password"
     export _ES_GLOBAL_DEVICE="$interface"
-    export _ES_HOMEPATH="/etc/esfshell/$interface" 
+    export _ES_HOMEPATH="/etc/esfshell/$interface"
+    export _ES_FORCE=true
     for ex_env in $env; do
         export $ex_env
     done
