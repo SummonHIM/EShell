@@ -51,7 +51,7 @@ apt update && apt install bash curl && _ES_INSTALL_ESFSHELL_LOC="/data/data/com.
 ```
 
 ### OpenWrt
-[下载最新 IPK](https://github.com/SummonHIM/EsurfingShell/releases/latest)
+[下载最新 IPK](https://github.com/SummonHIM/EsurfingShell/releases/latest) | [下载图形化界面（LuCI）](https://github.com/SummonHIM/luci-app-esfshell)
 
 > - 以上命令将一键安装Bash和curl并下载本仓库的esfshell.sh文件至`/usr/bin`，最后赋予执行权限。
 > - 其他Unix系系统也大同小异，只需要修改以上命令为系统常用的包管理器即可。
@@ -106,7 +106,7 @@ esfshell -O
 #### OpenWrt init.d
 [范例文件](/sample/openwrt-etc/init.d/esfshell)
 
-> [OpenWrt服务使用教程（英文）](https://openwrt.org/docs/guide-user/base-system/managing_services) | [OpenWrt日志查看教程（英文）](https://openwrt.org/docs/guide-user/base-system/log.essentials)
+可前去系统→启动项来控制该服务启停与开机自启。详细信息可参阅：[OpenWrt服务使用教程（英文）](https://openwrt.org/docs/guide-user/base-system/managing_services) | [OpenWrt日志查看教程（英文）](https://openwrt.org/docs/guide-user/base-system/log.essentials)
 
 一般情况下IPK软件包已经集成服务文件。若不存在则将范例文件下载至`/etc/init.d`文件夹即可使用。
 
