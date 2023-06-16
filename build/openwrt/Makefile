@@ -8,14 +8,6 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=esfshell
 PKG_VERSION:=$(if $(value GITHUB_REF_NAME),$(value GITHUB_REF_NAME),master)
 PKG_RELEASE:=$(if $(value GITHUB_RUN_NUMBER),$(value GITHUB_RUN_NUMBER),1)
-
-PKG_SOURCE:=$(PKG_VERSION).tar.gz
-PKG_SOURCE_GITTYPE:=$(if $(value GITHUB_REF_NAME),tags,heads)
-PKG_SOURCE_URL:=https://github.com/SummonHIM/EsurfingShell/archive/refs/$(PKG_SOURCE_GITTYPE)/
-PKG_HASH:=skip
-
-TAR_DIR:=$(BUILD_DIR)/EsurfingShell-$(PKG_VERSION)
-
 PKG_MAINTAINER:=SummonHIM <summonhim@qq.com>
 PKG_LICENSE:=GPL-3.0
 
@@ -42,11 +34,11 @@ endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(TAR_DIR)/esfshell.sh $(1)/usr/bin/esfshell
+	$(INSTALL_BIN) ./esfshell.sh $(1)/usr/bin/esfshell
 	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) $(TAR_DIR)/sample/openwrt-etc/init.d/esfshell $(1)/etc/init.d/esfshell
+	$(INSTALL_BIN) ./sample/openwrt-etc/init.d/esfshell $(1)/etc/init.d/esfshell
 	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DATA) $(TAR_DIR)/sample/openwrt-etc/config/esfshell $(1)/etc/config/esfshell
+	$(INSTALL_DATA) ./sample/openwrt-etc/config/esfshell $(1)/etc/config/esfshell
 endef
 
 $(eval $(call BuildPackage,esfshell))
