@@ -2,6 +2,8 @@ name: CI
 
 on:
   push:
+    branches:
+      - dev
     tags:
       - '*'
 
@@ -23,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: openwrt-esfshell
-          path: bin/packages/x86_64/base/esfshell.*.ipk
+          path: bin/packages/x86_64/action/*.ipk
 
   upload-release:
     name: Upload releases
@@ -45,4 +47,4 @@ jobs:
           tag_name: ${{ github.ref_name }}
           draft: true
           files: |
-            esfshell.*.ipk
+            *.ipk
