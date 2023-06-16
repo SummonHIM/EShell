@@ -14,7 +14,7 @@ PKG_LICENSE:=GPL-3.0
 ifneq ($(wildcard /artifacts),)
 PKG_DIRECTORY:=/artifacts
 else
-PKG_DIRECTORY:=../..
+PKG_DIRECTORY:=../../..
 endif
 
 include $(INCLUDE_DIR)/package.mk
