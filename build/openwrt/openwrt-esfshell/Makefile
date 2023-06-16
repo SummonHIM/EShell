@@ -11,6 +11,12 @@ PKG_RELEASE:=$(if $(value GITHUB_RUN_NUMBER),$(value GITHUB_RUN_NUMBER),1)
 PKG_MAINTAINER:=SummonHIM <summonhim@qq.com>
 PKG_LICENSE:=GPL-3.0
 
+ifneq ($(wildcard /artifacts),)
+PKG_DIRECTORY:=/artifacts
+else
+PKG_DIRECTORY:=../..
+endif
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
@@ -34,11 +40,11 @@ endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) ./esfshell.sh $(1)/usr/bin/esfshell
+	$(INSTALL_BIN) $(PKG_DIRECTORY)/esfshell.sh $(1)/usr/bin/esfshell
 	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./sample/openwrt-etc/init.d/esfshell $(1)/etc/init.d/esfshell
+	$(INSTALL_BIN) $(PKG_DIRECTORY)/sample/openwrt-etc/init.d/esfshell $(1)/etc/init.d/esfshell
 	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DATA) ./sample/openwrt-etc/config/esfshell $(1)/etc/config/esfshell
+	$(INSTALL_DATA) $(PKG_DIRECTORY)/sample/openwrt-etc/config/esfshell $(1)/etc/config/esfshell
 endef
 
 $(eval $(call BuildPackage,esfshell))

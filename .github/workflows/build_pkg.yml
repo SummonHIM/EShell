@@ -12,14 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Prepare OpenWrt makefile
-        run: cp build/openwrt/Makefile ./
-
       - name: Build OpenWrt package
         uses: openwrt/gh-action-sdk@main
         env:
           ARCH: x86_64-master
           PACKAGES: openwrt-esfshell
+          FEED_DIR: ${{ github.workspace }}/build/openwrt
 
       - name: Upload compiled package
         uses: actions/upload-artifact@v3
