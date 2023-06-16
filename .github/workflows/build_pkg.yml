@@ -9,25 +9,19 @@ jobs:
   openwrt:
     name: OpenWrt package
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        arch:
-          - x86_64
-
     steps:
       - uses: actions/checkout@v3
 
       - name: Build OpenWrt package
         uses: openwrt/gh-action-sdk@main
         env:
-          ARCH: ${{ matrix.arch }}
+          ARCH: x86_64-master
 
       - name: Upload compiled package
         uses: actions/upload-artifact@v3
         with:
           name: openwrt-esfshell
-          path: bin/packages/${{ matrix.arch }}/packages/*.ipk
+          path: bin/packages/x86_64/packages/*.ipk
 
   upload-release:
     name: Upload releases
