@@ -6,9 +6,11 @@ START=99
 
 config_esfshell_start() {
     config_get_bool enabled $1 enabled 0
-    [ "$enabled" = "1" ] || { return 1; }
     config_get username $1 username
     config_get password $1 password
+    [ "$enabled" = "1" ] || { return 1; }
+    [ -n "$username" ] || { return 1; }
+    [ -n "$password" ] || { return 1; }
     config_get interface $1 interface
     config_get env $1 env
 
@@ -22,9 +24,11 @@ config_esfshell_start() {
 
 config_esfshell_stop() {
     config_get_bool enabled $1 enabled 0
-    [ "$enabled" = "1" ] || { return 1; }
     config_get username $1 username
     config_get password $1 password
+    [ "$enabled" = "1" ] || { return 1; }
+    [ -n "$username" ] || { return 1; }
+    [ -n "$password" ] || { return 1; }
     config_get interface $1 interface
     config_get env $1 env
 
@@ -48,4 +52,8 @@ start_service() {
 service_stopped() {
     config_load esfshell
     config_foreach config_esfshell_stop
+}
+
+service_triggers() {
+	procd_add_reload_trigger "esfshell"
 }
