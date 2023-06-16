@@ -16,6 +16,7 @@ jobs:
         uses: openwrt/gh-action-sdk@main
         env:
           ARCH: x86_64-master
+          FEED_DIR: ${{ github.workspace }}/build/openwrt
           PACKAGES: openwrt-esfshell
 
       - name: Upload compiled package
