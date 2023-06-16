@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: openwrt-esfshell
-          path: bin/packages/x86_64/packages/*.ipk
+          path: bin/packages/x86_64/base/esfshell*.ipk
 
   upload-release:
     name: Upload releases
@@ -45,4 +45,4 @@ jobs:
           tag_name: ${{ github.ref_name }}
           draft: true
           files: |
-            *.ipk
+            esfshell*.ipk
