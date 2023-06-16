@@ -6,8 +6,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=esfshell
-PKG_VERSION:=$(if $(value GITHUB_REF_NAME),$(value GITHUB_REF_NAME),master)
-PKG_RELEASE:=$(if $(value GITHUB_RUN_NUMBER),$(value GITHUB_RUN_NUMBER),1)
+PKG_VERSION:=master
+PKG_RELEASE:=1
 PKG_MAINTAINER:=SummonHIM <summonhim@qq.com>
 PKG_LICENSE:=GPL-3.0
 

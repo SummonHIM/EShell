@@ -14,6 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup version code
+        run: |
+          sed -i 's/PKG_VERSION:=master/PKG_VERSION:=v${{ github.ref_name }}/' Makefile
+          sed -i 's/PKG_RELEASE:=1/PKG_RELEASE:=${{ github.run_number }}/' Makefile
+
       - name: Build OpenWrt package
         uses: openwrt/gh-action-sdk@main
         env:
