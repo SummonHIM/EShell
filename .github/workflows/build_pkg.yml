@@ -9,19 +9,25 @@ jobs:
   openwrt:
     name: OpenWrt package
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - x86_64
+
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build
+      - name: Build OpenWrt package
         uses: openwrt/gh-action-sdk@main
         env:
-          ARCH: x86_64
+          ARCH: ${{ matrix.arch }}
 
       - name: Upload compiled package
         uses: actions/upload-artifact@v3
         with:
           name: openwrt-esfshell
-          path: bin/packages/x86_64/packages/*.ipk
+          path: bin/packages/${{ matrix.arch }}/packages/*.ipk
 
   upload-release:
     name: Upload releases
@@ -41,7 +47,6 @@ jobs:
         with:
           name: EsurfingShell v${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
           files: |
-            esfshell_${{ github.ref_name }}-${{ github.run_number }}_all.ipk
+            *.ipk
