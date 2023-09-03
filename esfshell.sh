@@ -82,6 +82,7 @@ loadLang() {
         _ES_LANG_ACTIVATE_ETHER="获取到第一活跃网口:"
         _ES_LANG_ACTIVATE_ETHER_FAILED="无法获取到第一活跃网口！"
         _ES_LANG_ACTIVATE_ETHER_MANUAL="请输入正连接校园网的网口:"
+        _ES_LANG_STARTING_DAEMON="正在启动监控模式..."
 
         help() {
             echo "用法：${0##*/} <操作> [选项] [...]"
@@ -153,6 +154,7 @@ loadLang() {
         _ES_LANG_ACTIVATE_ETHER="Fetched first activating network interface:"
         _ES_LANG_ACTIVATE_ETHER_FAILED="Can not fetch first activating network interface."
         _ES_LANG_ACTIVATE_ETHER_MANUAL="Please enter a working network interface:"
+        _ES_LANG_STARTING_DAEMON="Starting daemon mode..."
 
         help() {
             echo "Usage：${0##*/} <Operation> [Options] [...]"
@@ -200,7 +202,7 @@ createLog() {
             mv "$_ES_LOG_PATH.tmp" "$_ES_LOG_PATH"
         else
             if [[ $_ES_VERBOSE == true ]]; then
-                printl Info "$_ES_LANG_LOG_SIZE $((size / 1024))MiB/$((maxsize / 1024))MiB"
+                printl Debug "$_ES_LANG_LOG_SIZE $((size / 1024))MiB/$((maxsize / 1024))MiB"
             fi
         fi
     fi
@@ -271,7 +273,7 @@ getMAC() {
 # Params: <Ether>
 # Return: Ether's IP
 getLocalIP() {
-    ip addr show dev "$1 "| grep "inet " | awk '{print $2}' | cut -d/ -f1 | head -1
+    ip addr show dev "$1 " | grep "inet " | awk '{print $2}' | cut -d/ -f1 | head -1
 }
 
 # 网站访问状态
@@ -394,7 +396,7 @@ logicActivateEther() {
         _ES_GLOBAL_DEVICE=$(getActivateEther)
         if [ "$_ES_GLOBAL_DEVICE" ]; then
             if [[ $_ES_VERBOSE == true ]]; then
-                printl Info "$_ES_LANG_ACTIVATE_ETHER $_ES_GLOBAL_DEVICE"
+                printl Debug "$_ES_LANG_ACTIVATE_ETHER $_ES_GLOBAL_DEVICE"
             fi
         else
             printl Warning "$_ES_LANG_ACTIVATE_ETHER_FAILED"
@@ -413,7 +415,7 @@ loginEnet() {
     _ES_CONFIG_CLIENTIP=$(getIP "$_ES_NC_URLLOCATION" clientip)
     if [ "$_ES_CONFIG_CLIENTIP" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_GET_CLIENTIP $_ES_CONFIG_CLIENTIP"
+            printl Debug "$_ES_LANG_LOGIN_GET_CLIENTIP $_ES_CONFIG_CLIENTIP"
         fi
     else
         printl Error "$_ES_LANG_LOGIN_GET_CLIENTIP_FAILED"
@@ -422,7 +424,7 @@ loginEnet() {
     _ES_CONFIG_NASIP=$(getIP "$_ES_NC_URLLOCATION" nasip)
     if [ "$_ES_CONFIG_NASIP" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_GET_NASIP $_ES_CONFIG_NASIP"
+            printl Debug "$_ES_LANG_LOGIN_GET_NASIP $_ES_CONFIG_NASIP"
         fi
     else
         printl Error "$_ES_LANG_LOGIN_GET_NASIP_FAILED"
@@ -434,14 +436,14 @@ loginEnet() {
         _ES_CONFIG_MAC=$(getMAC "$_ES_CONFIG_CLIENTIP")
     else
         if [[ $_ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_GET_MAC_RETRY"
+            printl Debug "$_ES_LANG_LOGIN_GET_MAC_RETRY"
         fi
         _ES_CONFIG_CLIENTIP=$(getLocalIP "$_ES_GLOBAL_DEVICE")
         _ES_CONFIG_MAC=$(getMAC "$_ES_CONFIG_CLIENTIP")
     fi
     if [ "$_ES_CONFIG_MAC" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_GET_MAC $_ES_CONFIG_MAC"
+            printl Debug "$_ES_LANG_LOGIN_GET_MAC $_ES_CONFIG_MAC"
         fi
     else
         printl Error "$_ES_LANG_LOGIN_GET_MAC_FAILED"
@@ -454,7 +456,7 @@ loginEnet() {
     fi
     if [ "$_ES_CONFIG_SCHOOLID" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_GET_SCHOOLID $_ES_CONFIG_SCHOOLID"
+            printl Debug "$_ES_LANG_LOGIN_GET_SCHOOLID $_ES_CONFIG_SCHOOLID"
         fi
     else
         printl Error "$_ES_LANG_LOGIN_GET_SCHOOLID_FAILED"
@@ -467,7 +469,7 @@ loginEnet() {
     fi
     if [ "$_ES_CONFIG_COOKIE" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_GET_COOKIE $_ES_CONFIG_COOKIE"
+            printl Debug "$_ES_LANG_LOGIN_GET_COOKIE $_ES_CONFIG_COOKIE"
         fi
     else
         printl Error "$_ES_LANG_LOGIN_GET_COOKIE_FAILED"
@@ -478,7 +480,7 @@ loginEnet() {
     _ES_CONFIG_VERIFYCODE=$(getVerifyCode "$_ES_ACC_USERNAME" "$_ES_CONFIG_CLIENTIP" "$_ES_CONFIG_NASIP" "$_ES_CONFIG_MAC" "$_ES_CONFIG_COOKIE")
     if [ "$_ES_CONFIG_VERIFYCODE" ]; then
         if [[ $_ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_GET_VERIFYCODE $_ES_CONFIG_VERIFYCODE"
+            printl Debug "$_ES_LANG_LOGIN_GET_VERIFYCODE $_ES_CONFIG_VERIFYCODE"
         fi
     else
         printl Error "$_ES_LANG_LOGIN_GET_VERIFYCODE_FAILED"
@@ -496,12 +498,12 @@ loginEnet() {
                 echo "_ES_CONFIG_NASIP=\"$_ES_CONFIG_NASIP\""
                 echo "_ES_CONFIG_MAC=\"$_ES_CONFIG_MAC\""
                 echo "_ES_CONFIG_COOKIE=\"$_ES_CONFIG_COOKIE\""
-            }>"$_ES_HOMEPATH/esfshell.run"
+            } >"$_ES_HOMEPATH/esfshell.run"
         else
             printl Error "$_ES_LANG_LOGIN_FAILED"
         fi
         if [[ $_ES_VERBOSE == true ]]; then
-            printl Info "$_ES_LANG_LOGIN_RESULT $_ES_RESULT_LOGING"
+            printl Debug "$_ES_LANG_LOGIN_RESULT $_ES_RESULT_LOGING"
         fi
     else
         _ES_EXIT_CODE=1
@@ -535,7 +537,7 @@ login() {
             # 获取重定向地址
             printl Info "$_ES_LANG_LOGIN_CHECK_NEED"
             if [[ $_ES_VERBOSE == true ]]; then
-                printl Info "$_ES_LANG_LOGIN_CHECK_REDIRURL $_ES_NC_URLLOCATION"
+                printl Debug "$_ES_LANG_LOGIN_CHECK_REDIRURL $_ES_NC_URLLOCATION"
             fi
             if [[ $_ES_NC_URLLOCATION =~ $_ES_REDIR_URL ]]; then
                 loginEnet
@@ -580,10 +582,10 @@ logout() {
     fi
 
     if [[ $_ES_VERBOSE == true ]]; then
-        printl Info "$_ES_LANG_LOGOUT_GET_CLIENTIP $_ES_CONFIG_CLIENTIP"
-        printl Info "$_ES_LANG_LOGOUT_GET_NASIP $_ES_CONFIG_NASIP"
-        printl Info "$_ES_LANG_LOGOUT_GET_MAC $_ES_CONFIG_MAC"
-        printl Info "$_ES_LANG_LOGOUT_GET_COOKIE $_ES_CONFIG_COOKIE"
+        printl Debug "$_ES_LANG_LOGOUT_GET_CLIENTIP $_ES_CONFIG_CLIENTIP"
+        printl Debug "$_ES_LANG_LOGOUT_GET_NASIP $_ES_CONFIG_NASIP"
+        printl Debug "$_ES_LANG_LOGOUT_GET_MAC $_ES_CONFIG_MAC"
+        printl Debug "$_ES_LANG_LOGOUT_GET_COOKIE $_ES_CONFIG_COOKIE"
     fi
 
     printl Info "$_ES_LANG_LOGOUT_ING"
@@ -597,16 +599,22 @@ logout() {
         _ES_EXIT_CODE=1
     fi
     if [[ $_ES_VERBOSE == true ]]; then
-        printl Info "$_ES_LANG_LOGOUT_RESULT $_ES_RESULT_LOGOUT"
+        printl Debug "$_ES_LANG_LOGOUT_RESULT $_ES_RESULT_LOGOUT"
     fi
 }
 
 # 循环检测登陆
 daemon() {
+    printl Info "$_ES_LANG_STARTING_DAEMON"
     while true; do
-        logicActivateEther
-        login
-        printl Info "$_ES_LANG_DAEMON_WAIT_A $_ES_DAEMON_SLEEPTIME $_ES_LANG_DAEMON_WAIT_B"
+        if [[ $_ES_VERBOSE == true ]]; then
+            logicActivateEther
+            login
+            printl Info "$_ES_LANG_DAEMON_WAIT_A $_ES_DAEMON_SLEEPTIME $_ES_LANG_DAEMON_WAIT_B"
+        else
+            logicActivateEther >nul
+            login >nul
+        fi
         sleep "$_ES_DAEMON_SLEEPTIME"
     done
 }
