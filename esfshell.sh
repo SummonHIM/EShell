@@ -82,7 +82,7 @@ loadLang() {
         _ES_LANG_ACTIVATE_ETHER="获取到第一活跃网口:"
         _ES_LANG_ACTIVATE_ETHER_FAILED="无法获取到第一活跃网口！"
         _ES_LANG_ACTIVATE_ETHER_MANUAL="请输入正连接校园网的网口:"
-        _ES_LANG_STARTING_DAEMON="正在启动监控模式..."
+        _ES_LANG_STARTING_DAEMON="正在监控校园网..."
 
         help() {
             echo "用法：${0##*/} <操作> [选项] [...]"
@@ -154,7 +154,7 @@ loadLang() {
         _ES_LANG_ACTIVATE_ETHER="Fetched first activating network interface:"
         _ES_LANG_ACTIVATE_ETHER_FAILED="Can not fetch first activating network interface."
         _ES_LANG_ACTIVATE_ETHER_MANUAL="Please enter a working network interface:"
-        _ES_LANG_STARTING_DAEMON="Starting daemon mode..."
+        _ES_LANG_STARTING_DAEMON="Daemon mode started..."
 
         help() {
             echo "Usage：${0##*/} <Operation> [Options] [...]"
@@ -610,7 +610,7 @@ daemon() {
         if [[ $_ES_VERBOSE == true ]]; then
             logicActivateEther
             login
-            printl Info "$_ES_LANG_DAEMON_WAIT_A $_ES_DAEMON_SLEEPTIME $_ES_LANG_DAEMON_WAIT_B"
+            printl Debug "$_ES_LANG_DAEMON_WAIT_A $_ES_DAEMON_SLEEPTIME $_ES_LANG_DAEMON_WAIT_B"
         else
             logicActivateEther >nul
             login >nul
