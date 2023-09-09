@@ -612,8 +612,8 @@ daemon() {
             login
             printl Debug "$_ES_LANG_DAEMON_WAIT_A $_ES_DAEMON_SLEEPTIME $_ES_LANG_DAEMON_WAIT_B"
         else
-            logicActivateEther >nul
-            login >nul
+            logicActivateEther >/dev/null
+            login >/dev/null
         fi
         sleep "$_ES_DAEMON_SLEEPTIME"
     done
