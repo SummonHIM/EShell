@@ -6,19 +6,19 @@
 # 获取第一活跃端口
 # Return: Ether name
 getActivateEther() {
-    ipconfig | iconv -f iso-8859-1 -t UTF-8 | grep -i 'IPv4' | head -n 1 | awk '{print $NF}'
+    ipconfig | iconv -f ISO-8859-1 -t UTF-8 | grep -i 'IPv4' | head -n 1 | awk '{print $NF}'
 }
 
 # 获取MAC地址
 # Params: <IP>
 # Return: MAC
 getMAC() {
-    wmic nicconfig where IPEnabled=True get ipaddress,macaddress | iconv -f gbk -t utf-8 | grep "$1" | awk '{print $NF}'
+    wmic nicconfig where IPEnabled=True get ipaddress,macaddress | iconv -f ISO-8859-1 -t utf-8 | grep "$1" | awk '{print $NF}'
 }
 
 # 获取本地IP地址
 # Params: <Ether>
 # Return: Ether's IP
 getLocalIP() {
-    ipconfig | iconv -f iso-8859-1 -t UTF-8 | grep -i 'IPv4' | head -n 1 | awk '{print $NF}'
+    ipconfig | iconv -f ISO-8859-1 -t UTF-8 | grep -i 'IPv4' | head -n 1 | awk '{print $NF}'
 }
