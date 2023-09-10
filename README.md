@@ -42,7 +42,7 @@ sudo apt update && sudo apt install bash curl && sudo sh -c "$(curl -fsSL https:
 
 ### Windows MSYS
 ```Shell
-pacman -Su bash curl && _ES_SKIP=true sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)"
+_ES_SKIP=true sh -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/install/linux.sh)" && mkdir -p "$HOME/.config/esfshell" && curl -o "$HOME/.config/esfshell/esfshellrc.sh" "https://fastly.jsdelivr.net/gh/SummonHIM/EsurfingShell@master/sample/windows-net-tools/esfshellrc.sh"
 ```
 
 ### Android Termux

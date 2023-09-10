@@ -6,9 +6,7 @@
 # 获取第一活跃端口
 # Return: Ether name
 getActivateEther() {
-    local etherName
-    etherName=$(netsh interface show interface | iconv -f gbk -t utf-8 | grep -i '已连接' | awk '{ for (i=4; i<=NF; ++i) printf $i""FS; print ""}' | head -1)
-    echo "${etherName%?}"
+    ipconfig | iconv -f iso-8859-1 -t UTF-8 | grep -i 'IPv4' | head -n 1 | awk '{print $NF}'
 }
 
 # 获取MAC地址
@@ -22,5 +20,5 @@ getMAC() {
 # Params: <Ether>
 # Return: Ether's IP
 getLocalIP() {
-    netsh interface ipv4 show ipaddresses "$1" | iconv -f gbk -t utf-8 | grep -E "地址.*参数" | awk '{print $2}'
+    ipconfig | iconv -f iso-8859-1 -t UTF-8 | grep -i 'IPv4' | head -n 1 | awk '{print $NF}'
 }
