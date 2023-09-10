@@ -20,5 +20,5 @@ getMAC() {
 # Params: <Ether>
 # Return: Ether's IP
 getLocalIP() {
-    ipconfig | iconv -f ISO-8859-1 -t UTF-8 | grep -i 'IPv4' | head -n 1 | awk '{print $NF}'
+    ipconfig | iconv -f ISO-8859-1 -t UTF-8 | grep -i "$1" | head -n 1 | awk '{print $NF}'
 }
