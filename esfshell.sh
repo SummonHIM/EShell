@@ -291,12 +291,12 @@ getUrlStatus() {
 
 # 检查网络状态
 # Params: <Url>
-# Retrun: 302=false, other=true
+# Retrun: 204=true, other=false
 networkCheck() {
-    if [[ $(getUrlStatus "$1" code) == 302 ]]; then
-        false
-    else
+    if [[ $(getUrlStatus "$1" code) == 204 ]]; then
         true
+    else
+        false
     fi
 }
 
