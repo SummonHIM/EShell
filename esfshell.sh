@@ -282,10 +282,10 @@ getLocalIP() {
 getUrlStatus() {
     if [[ "$2" == "location" ]]; then
         #获取重定向地址
-        curl "$1" -H "$_ES_GLOBAL_USERAGENT" -I -G -s --interface "$_ES_GLOBAL_DEVICE" | grep "Location" | awk '{print $2}' | tr -d '\r' | tr -d '\n'
+        curl "$1" -H "$_ES_GLOBAL_USERAGENT" -i -G -s --interface "$_ES_GLOBAL_DEVICE" | grep "Location" | awk '{print $2}' | tr -d '\r' | tr -d '\n'
     elif [[ "$2" == "code" ]]; then
         #获取状态码
-        curl "$1" -H "$_ES_GLOBAL_USERAGENT" -I -G -s --interface "$_ES_GLOBAL_DEVICE" | grep "HTTP" | awk '{print $2}' | tr -d '\r' | tr -d '\n'
+        curl "$1" -H "$_ES_GLOBAL_USERAGENT" -i -G -s --interface "$_ES_GLOBAL_DEVICE" | grep "HTTP" | awk '{print $2}' | tr -d '\r' | tr -d '\n'
     fi
 }
 
