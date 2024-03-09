@@ -48,6 +48,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
+        if: github.ref != 'refs/heads/master'
         with:
           name: EsurfingShell v${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
