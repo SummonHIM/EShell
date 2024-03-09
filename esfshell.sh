@@ -513,6 +513,11 @@ loginEnet() {
 
 #登录逻辑
 login() {
+    # 执行自定义登录检查前函数
+    if type before_login_check >/dev/null 2>&1; then
+        before_login_check
+    fi
+
     # 网络检测，若可以连接外网则退出
     printl Info "$_ES_LANG_LOGIN_CHECK"
     if [[ $_ES_FORCE != true ]]; then
