@@ -59,6 +59,9 @@ apt update && apt install bash curl && _ES_INSTALL_ESFSHELL_LOC="/data/data/com.
 > - 其他Unix系系统也大同小异，只需要修改以上命令为系统常用的包管理器即可。
 > - 在Windows MSYS和Android Termux中不需要使用sudo来获取管理员权限。可提前定义变量`_ES_SKIP`为`true`来跳过Root检查。
 
+#### 关于负载均衡（MWAN3）的提示
+如果你的 OpenWrt 使用 Nftable 防火墙。那么使用时有可能会发生无法登录的情况。因为 Nftable 下的负载均衡在网络断开的情况下会阻止客户端上网。若出现这种情况。请复制该[初始化文件范例](/sample/openwrt-etc/esfshell/with_mwan3.sh)至`/etc/esfshell/esfshellrc.sh`
+
 ## 如何使用？
 ```
 用法：esfshell <操作> [选项] [...]

@@ -52,9 +52,18 @@ config_esfshell_stop() {
     fi
     config_get env $1 env
 
+    if [ "$(echo "$interface" | cut -c1)" = "@" ]; then
+        device=$(uci get "network.$(echo "$interface" | cut -c2-).device")
+        ifalias=$(echo "$interface" | cut -c2-)
+    else
+        device=$interface
+        ifalias=""
+    fi
+
     export _ES_ACC_USERNAME="$username"
     export _ES_ACC_PASSWD="$password"
-    export _ES_GLOBAL_DEVICE="$interface"
+    export _ES_GLOBAL_DEVICE="$device"
+    export _ES_OPENWRT_DEVICE_ALIAS="$ifalias"
     export _ES_HOMEPATH="/etc/esfshell/$interface"
     export _ES_FORCE=true
     export _ES_VERBOSE="$verbose"
@@ -62,7 +71,7 @@ config_esfshell_stop() {
         export $ex_env
     done
 
-	/usr/bin/esfshell -O
+    /usr/bin/esfshell -O
 }
 
 start_service() {
@@ -76,5 +85,5 @@ service_stopped() {
 }
 
 service_triggers() {
-	procd_add_reload_trigger "esfshell"
+    procd_add_reload_trigger "esfshell"
 }

@@ -1,12 +1,11 @@
 #!/bin/bash
-
 # Post请求 (postReq url data cookie)
 # Params: <Url> <Data> <Cookie>
 # Return: <Post return string>
 postReq() {
     local contentType="Content-Type: application/json"
     local accept="Accept: */*"
-    mwan3 use "$_ES_OPENWRT_DEVICE_ALIAS" curl "$1" -H "$_ES_GLOBAL_USERAGENT" -H "$contentType" -H "$accept" -d "$2" --cookie "$3" -s --interface "$_ES_GLOBAL_DEVICE"
+    mwan3 use "$_ES_OPENWRT_DEVICE_ALIAS" curl "$1" -H "$_ES_GLOBAL_USERAGENT" -H "$contentType" -H "$accept" -d "$2" --cookie "$3" -s --interface "$_ES_GLOBAL_DEVICE" | tail -n +2
 }
 
 # 网站访问状态
