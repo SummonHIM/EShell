@@ -513,6 +513,11 @@ loginEnet() {
 
 #登录逻辑
 login() {
+    # 执行自定义登录前函数
+    if type before_login >/dev/null 2>&1; then
+        before_login
+    fi
+
     # 网络检测，若可以连接外网则退出
     printl Info "$_ES_LANG_LOGIN_CHECK"
     if [[ $_ES_FORCE != true ]]; then
@@ -551,10 +556,20 @@ login() {
             return
         fi
     fi
+
+    # 执行自定义登录后函数
+    if type after_login >/dev/null 2>&1; then
+        after_login
+    fi
 }
 
 # 注销逻辑
 logout() {
+    # 执行自定义注销前函数
+    if type before_logout >/dev/null 2>&1; then
+        before_logout
+    fi
+
     if [ -e "$_ES_HOMEPATH/esfshell.run" ]; then
         source "$_ES_HOMEPATH/esfshell.run"
     else
@@ -600,6 +615,11 @@ logout() {
     fi
     if [[ $_ES_VERBOSE == true ]]; then
         printl Debug "$_ES_LANG_LOGOUT_RESULT $_ES_RESULT_LOGOUT"
+    fi
+
+    # 执行自定义注销后函数
+    if type after_logout >/dev/null 2>&1; then
+        after_logout
     fi
 }
 
@@ -678,6 +698,14 @@ while [[ $# -gt 0 ]]; do
 done
 
 # 加载初始化文件
+if [ -e "/usr/lib/esfshell/esfshellrc.sh" ]; then
+    source "/usr/lib/esfshell/esfshellrc.sh"
+fi
+
+if [ -e "/etc/esfshell/esfshellrc.sh" ]; then
+    source "/etc/esfshell/esfshellrc.sh"
+fi
+
 if [ -e "$_ES_HOMEPATH/esfshellrc.sh" ]; then
     source "$_ES_HOMEPATH/esfshellrc.sh"
 fi

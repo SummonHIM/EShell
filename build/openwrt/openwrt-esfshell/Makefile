@@ -45,6 +45,8 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_BIN) $(PKG_DIRECTORY)/sample/openwrt-etc/init.d/esfshell $(1)/etc/init.d/esfshell
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_DATA) $(PKG_DIRECTORY)/sample/openwrt-etc/config/esfshell $(1)/etc/config/esfshell
+	$(INSTALL_DIR) $(1)/usr/lib/esfshell
+	$(INSTALL_DATA) $(PKG_DIRECTORY)/sample/openwrt-etc/esfshell/esfshellrc.sh $(1)/usr/lib/esfshell/esfshellrc.sh
 endef
 
 $(eval $(call BuildPackage,esfshell))
