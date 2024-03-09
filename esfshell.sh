@@ -513,11 +513,6 @@ loginEnet() {
 
 #登录逻辑
 login() {
-    # 执行自定义登录前函数
-    if type before_login >/dev/null 2>&1; then
-        before_login
-    fi
-
     # 网络检测，若可以连接外网则退出
     printl Info "$_ES_LANG_LOGIN_CHECK"
     if [[ $_ES_FORCE != true ]]; then
@@ -526,6 +521,12 @@ login() {
             return
         fi
     fi
+
+    # 执行自定义登录前函数
+    if type before_login >/dev/null 2>&1; then
+        before_login
+    fi
+
     # 开始登陆
     if [[ $_ES_FORCE == true ]]; then
         if [[ $_ES_NC_URLLOCATION =~ $_ES_REDIR_URL ]]; then
